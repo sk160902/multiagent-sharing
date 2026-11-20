@@ -53,7 +53,7 @@ whoever is doing best so far, and copying a good setup pays in the current round
 is also higher under sharing, by \OwnBestLem{} points in the lemonade framing and \OwnBestAli{} in the alien
 framing, so sharing makes the typical agent better off even as it makes the team's ceiling lower.
 
-\paragraph{Sharing lowers the max, consistently but not reliably.}
+\paragraph{Sharing lowers the max, but not reliably.}
 In the lemonade framing working alone has the highest max, \LemSoloMax\%, and every sharing condition is
 below it, by about 3 to 15 points; sharing all along is at \LemShareMax\%. In the alien framing working alone
 is at \AliSoloMax\% and sharing all along at \AliShareMax\%. The pooled drop is \AllLemMax{} points in the
@@ -76,7 +76,7 @@ world-runs in the lemonade framing and \AliSoloReached{} in the alien framing, a
   \input{tables/tab_reached}
 \end{table}
 
-\paragraph{Timing.}
+\paragraph{Timing of the board.}
 Figure~\ref{fig:timing} plots the max against the round in which the board opens. The two framings differ in
 shape. In the lemonade framing the worst time to open the board is the middle of the game: sharing after 2 or
 5 private rounds is the lowest, and opening it very late recovers most of the loss. In the alien framing the
@@ -96,7 +96,7 @@ controls that would test it are described in Section~\ref{sec:next}.
   \figurenote{Blue is the lemonade framing and orange the alien framing. The dashed line in each colour is the working-alone level for that framing. GPT-5.6, eight worlds, two or three runs per world; bars show the standard deviation across runs.}
 \end{figure}
 
-\paragraph{Per-condition contrasts and the two conditions level with working alone.}
+\paragraph{Per-condition contrasts.}
 Table~\ref{tab:percondition} gives each sharing condition minus working alone on every measure. On the max, no
 sharing condition is above working alone in the lemonade framing. In the alien framing two are slightly above
 it: sharing at rounds 6, 11 and 16 only, at \AliPeriodicMax\% against \AliSoloMax\% (difference
@@ -109,7 +109,7 @@ is \LemPeriodicMax\% against \LemSoloMax\%, below working alone. We therefore re
 alone, not better. What the two have in common is that they are the two sharing designs that keep exploration
 near the working-alone level.
 
-\paragraph{A direct test on sixteen more worlds.}
+\paragraph{Replication on sixteen further worlds.}
 Because the test over eight worlds cannot separate a gap of a few points from zero, we ran the periodic-board
 condition and working alone on sixteen further worlds that no condition had touched, three runs per world, in
 both framings, with the analysis fixed before each run. Table~\ref{tab:worlds24} gives the paired differences
@@ -145,7 +145,7 @@ the count lower in \WLAllUniqDown{} and \WAllUniqDown{} of the \WAllUniqN{} worl
   \input{tables/tab_percondition}
 \end{table}
 
-\paragraph{A second model.}
+\paragraph{Replication on a second model.}
 To check that the pattern is not specific to GPT-5.6, we ran working alone, sharing all along and sharing at
 rounds 6, 11 and 16 on Claude Opus 5.5, in both framings, on the eight pilot worlds, two runs per world, with
 the analysis fixed before the runs. (Claude Opus 5 could not be used: its safety classifier refuses the alien
@@ -173,7 +173,7 @@ search, raises earnings, and never raises the ceiling.
   \input{tables/tab_claude}
 \end{table}
 
-\paragraph{A longer game.}
+\paragraph{A longer horizon.}
 A reader of the first draft asked whether the trade between earning and finding is a property of the game or
 of stopping at round 20. To test this we ran working alone and sharing all along for 60 rounds, in both
 framings, on the eight pilot worlds, three runs per world, with the analysis and a decision rule fixed before

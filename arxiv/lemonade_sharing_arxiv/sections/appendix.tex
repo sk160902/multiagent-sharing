@@ -6,7 +6,7 @@ Appendix~\ref{app:prompts} gives the prompts verbatim in both framings, the shar
 and the stay-different instruction. Appendix~\ref{app:worlds} lists the eight worlds' global optima and the
 generator's ranges. Appendix~\ref{app:perworld} gives the per-world values behind every mean in
 Table~\ref{tab:main}. Appendix~\ref{app:agree} reports, per condition, whether the repeat runs fell on the same
-side of working alone as the first run. Appendix~\ref{app:runs} records when the runs were made and what they
+side of working alone as the first run. Appendix~\ref{app:runs} records the order of the runs and what they
 cost. The environment, the prompts, the experiment and launch scripts, every episode record behind the tables,
 the analysis scripts that regenerate them and the source of this paper are at
 \url{https://github.com/sk160902/multiagent-sharing}.
@@ -64,7 +64,7 @@ Reply with ONLY a JSON object, no other text:
 \end{verbatim}
 \end{small}
 
-\paragraph{User turn.}
+\paragraph{User message.}
 The first user turn reads ``Round 1 of 20. No rounds played yet. What is your choice?''. From round two
 onward it lists the agent's own history, one line per round, then the round number. In the lemonade framing a
 line reads
@@ -83,7 +83,7 @@ and in the alien framing the same round reads
 \end{verbatim}
 \end{small}
 
-\paragraph{The shared board.}
+\paragraph{Shared board.}
 When the board is visible it is appended to the user turn. Its header and its post lines are the same in both
 framings:
 \begin{small}
@@ -98,7 +98,7 @@ price=0.0 -> earned 89.7
 Posts accumulate in order, most recent last, for all three agents. As noted in Section~\ref{sec:limitations},
 the board uses the lemonade vocabulary in the alien framing as well.
 
-\paragraph{The stay-different instruction.}
+\paragraph{Stay-different instruction.}
 In the ``sharing, told to stay different'' condition the following text is appended under the board in every
 round in which it is visible:
 \begin{small}
