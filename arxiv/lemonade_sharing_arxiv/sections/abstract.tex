@@ -5,7 +5,7 @@ agent should not have to rediscover what a teammate already found. We ask whethe
 local optimum, where each round's profit is an exact score for that round but a poor guide to where the best
 setup lies, because every setup on the way to it pays less than the one the agent starts from. We use a reimplementation of the lemonade-stand game of \citet{ederer2013pay}: an agent chooses a
 location, a recipe and a price for \NRounds{} rounds, is paid a profit each round, and the best location pays
-about twice the one it is pointed to at the start. Teams of \NAgents{} GPT-5.6 agents, each told only to
+about twice the one it is pointed to at the start. Teams of \NAgents{} GPT-5.6 agents, each told to
 maximise the overall performance of the business, play \NWorlds{} hidden worlds under nine conditions that
 differ only in when a shared board of every teammate's moves and profits is visible, and in two framings: the
 lemonade framing, with the original wording and a letter from the previous manager recommending a setup, and

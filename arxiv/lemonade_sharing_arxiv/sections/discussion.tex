@@ -30,9 +30,7 @@ good way to climb a hill and a poor way to find out whether there is a higher hi
 Two results are established on this testbed: sharing cuts distinct setups roughly in half, and sharing
 raises cumulative earnings. Both hold in every run and both pass the pre-specified test in each framing. The
 drop in the max is consistent across runs and framings but is not statistically reliable with eight worlds,
-and we report it as a consistent direction, not as a finding. The agents were asked for overall performance
-and, in effect, read that as earning well each round; a team told that only its best round counts would have
-less reason to copy a known setup, and we would expect a smaller drop under that instruction. No sharing
+and we report it as a consistent direction, not as a finding. No sharing
 condition beats working alone on the max; the two that come out level with it do so by one extra world-run
 and are within the run-to-run noise.
 The paired test over eight worlds has low power for a best-of-sixty measure, so a reader who wants the max
@@ -41,11 +39,10 @@ result settled either way should expect it to need several times as many worlds.
 \paragraph{Limitations.}\label{sec:limitations}
 The study is small: eight worlds for most contrasts, two models, teams of three, a horizon of \NRounds{}
 rounds for all but two conditions. The 60-round runs cover working alone and sharing all along only, so how the
-periodic board and the other conditions behave in a longer game is not known. The goal line leaves the
-objective to the agent. That is the realistic case and it keeps the comparison between conditions clean, but
-it means the two measures are read off agents that were optimising neither by instruction, and how far the
-drop in the max depends on this is untested; a version of the two main conditions with the objective stated
-explicitly, as the total over the game and as the best single round, is the next run. The second model covers
+periodic board and the other conditions behave in a longer game is not known. The agents are not told which
+measure they are scored on, so both measures are read off agents optimising neither by instruction; how the
+results change when the objective is stated, as the total over the game or as the best single round, is
+untested. The second model covers
 three of
 the nine conditions, and on it the drop in the max appears in only one
 framing, so the max result should be read as model-dependent until more models are run. Two details of
@@ -64,9 +61,9 @@ under sharing, so the team-level drop is a statement about the ceiling of the be
 typical agent.
 
 \paragraph{Future work.}\label{sec:next}
-The first is the objective: working alone and sharing all along with the goal line stated explicitly, as the
-total over the game and as the best single round. If the drop in the max survives an instruction to maximise
-the best round, the ceiling result becomes a finding rather than a direction. The alien framing changes two things at
+Stating the objective explicitly, as the total over the game or as the best single round, and rerunning
+working alone and sharing all along would show how far the results depend on the open goal line. The alien
+framing changes two things at
 once, the labels and the letter, so it cannot say which drives the difference in timing between framings. Two
 controls separate them: the lemonade framing without the letter, and the alien framing with the letter. Beyond that, the question of when sharing helps is a question about
 the landscape. On a smooth landscape, where local search reaches the top, sharing should help; on a rugged one
