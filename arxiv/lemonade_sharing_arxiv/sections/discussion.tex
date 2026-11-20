@@ -1,0 +1,76 @@
+\section{Discussion}\label{sec:discussion}
+
+\paragraph{The trade.}
+Looked at together, the results describe a trade between earning more along the way and finding less at the
+end. Sharing raises what the team earns while it looks and lowers what the team eventually finds. A team that
+cares about the ceiling seems to do better keeping its agents apart for a while. A team that cares about the
+total seems to do better letting them copy each other. The 60-round runs show that this trade is a horizon
+effect, and that it resolves in opposite directions depending on the letter. With the letter, it dissolves in
+sharing's favour: given time, sharing teams leave the recommended location, reach the same ceiling as agents
+working alone, and keep a larger cumulative lead. Without the letter, it dissolves the other way: the sharing
+teams' ceiling stays \HAliMaxFull{} points below, and the lone agents' wider search pays back by round 60, so
+the cumulative lead of sharing is gone. What sharing buys, on this reading, is a faster climb up whatever hill
+the team starts on. Whether that is the right hill is set by where the agents start, and the letter gives every
+agent the same start.
+
+\paragraph{The mechanism.}
+We think the whole mechanism is that sharing makes the team search less. Once agents can see each other,
+they copy whoever is doing best so far. That is good for earnings in the current round. It could be bad for
+finding the best location, because the agent doing best so far is usually at a location that is good but
+not the best, and the best location pays badly until its recipe is found. In the lemonade framing the
+manager's letter seems to make this worse: all three agents start near the letter's location, so the board
+shows them three versions of the same wrong answer. Telling agents to stay different keeps exploration at the
+working-alone level in both framings, and it brings the max back to the working-alone level in the alien
+framing but not in the lemonade framing. One reading is that exploring widely is necessary for finding the
+ceiling but not sufficient. One agent at a time explores least of all and still earns the most in the
+lemonade framing: each agent sees the two moves before its own in every round and refines them, which is a
+good way to climb a hill and a poor way to find out whether there is a higher hill elsewhere.
+
+\paragraph{What is established and what is not.}
+Two results are established on this testbed: sharing cuts distinct setups roughly in half, and sharing
+raises cumulative earnings. Both hold in every run and both pass the pre-specified test in each framing. The
+drop in the max is consistent across runs and framings but is not statistically reliable with eight worlds,
+and we report it as a consistent direction, not as a finding. The agents were asked for overall performance
+and, in effect, read that as earning well each round; a team told that only its best round counts would have
+less reason to copy a known setup, and we would expect a smaller drop under that instruction. No sharing
+condition beats working alone on the max; the two that come out level with it do so by one extra world-run
+and are within the run-to-run noise.
+The paired test over eight worlds has low power for a best-of-sixty measure, so a reader who wants the max
+result settled either way should expect it to need several times as many worlds.
+
+\paragraph{Limitations.}\label{sec:limitations}
+The study is small: eight worlds for most contrasts, two models, teams of three, a horizon of \NRounds{}
+rounds for all but two conditions. The 60-round runs cover working alone and sharing all along only, so how the
+periodic board and the other conditions behave in a longer game is not known. The goal line leaves the
+objective to the agent. That is the realistic case and it keeps the comparison between conditions clean, but
+it means the two measures are read off agents that were optimising neither by instruction, and how far the
+drop in the max depends on this is untested; a version of the two main conditions with the objective stated
+explicitly, as the total over the game and as the best single round, is the next run. The second model covers
+three of
+the nine conditions, and on it the drop in the max appears in only one
+framing, so the max result should be read as model-dependent until more models are run. Two details of
+the alien framing should be known when reading its numbers. First, the shared board is rendered with the
+lemonade vocabulary in both framings: its posts name the location and the variables as ``location'',
+``sugar'', ``lemon'', ``colour'' and ``price'' and its header describes the agents as stand owners, so an
+alien-framing agent that reads the board sees lemonade words there, while its own prompt uses A to E. The
+agent's own posts appear on the board, so it can align the two vocabularies, but the alien sharing conditions
+are less fully stripped of lemonade priors than the alien working-alone condition. Second, the alien labels
+A1 to A3 follow the world's internal ordering of locations rather than a per-episode shuffle, and under that
+ordering the first-listed location is never the best in any of the eight worlds; alien agents spend more
+attempts at the first-listed location than lemonade agents do. Both details apply equally to every alien
+condition, so the within-framing contrasts that this paper reports are unaffected, but we do not compare
+levels across framings. Finally, the max is a best-of-three measure. Each agent's own best round is higher
+under sharing, so the team-level drop is a statement about the ceiling of the best member, not about the
+typical agent.
+
+\paragraph{Next steps.}\label{sec:next}
+The first is the objective: working alone and sharing all along with the goal line stated explicitly, as the
+total over the game and as the best single round. If the drop in the max survives an instruction to maximise
+the best round, the ceiling result becomes a finding rather than a direction. The alien framing changes two things at
+once, the labels and the letter, so it cannot say which drives the difference in timing between framings. Two
+controls separate them: the lemonade framing without the letter, and the alien framing with the letter. Beyond that, the question of when sharing helps is a question about
+the landscape. On a smooth landscape, where local search reaches the top, sharing should help; on a rugged one
+it should hurt. Parameterising the worlds by the number of decision variables and their interdependence, as in
+NK models \citep{levinthal1997adaptation,lazer2007network}, and running the same conditions at low, medium and
+high interdependence with everything else fixed, would turn the present result into a curve. More worlds, more
+models, the remaining conditions at the longer horizon, and larger teams are the other obvious extensions.

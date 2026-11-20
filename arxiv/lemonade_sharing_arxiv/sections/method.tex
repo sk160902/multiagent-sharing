@@ -1,0 +1,137 @@
+\section{Methodology}\label{sec:method}
+
+\subsection{The game}\label{sec:game}
+
+One agent runs a stand for \NRounds{} rounds. Each round it chooses a location from three, a sugar level, a
+lemon level, a colour from two, and a price. Sugar, lemon and price run from 0.0 to 10.0 in steps of 0.1. The
+agent then receives that round's profit and one line of customer feedback. Profit is deterministic. Each
+location in a world has a hidden ideal setup and a hidden ceiling, and the profit for a setup is the
+ceiling minus a linear penalty for every unit of distance from the ideal on each of sugar, lemon and price,
+minus a flat penalty if the colour is wrong, floored at zero. The same setup in the same world always pays
+the same profit. The feedback line picks one of sugar, lemon or price at random and says whether it is above,
+below or at the ideal for the location the agent sold at. It is a local signal about one dial at one
+location. It says nothing about other locations and never mentions colour. The agent never sees the profit
+rule or the ideals; it has to find a good setup by trying things. Appendix~\ref{app:prompts} gives the
+prompts verbatim.
+
+\subsection{Worlds}\label{sec:worlds}
+
+A world is a set of hidden ideals, one per location, together with each location's ceiling and penalty
+slopes. Worlds are drawn by a generator that reproduces the structure of the original game
+\citep{ederer2013pay}: one \emph{anchor} location with a ceiling between 90 and 110 and steep penalties, one
+\emph{best} location with a ceiling between 180 and 220, equally steep penalties and a large colour penalty,
+and a third location with a low ceiling and gentle penalties. A generated world is kept only if moving to the
+best location without also changing the recipe pays less than staying at the anchor, so that reaching the top
+requires a coordinated change of several variables and passes through a valley. The eight worlds used here
+are the first eight of the validation split of the generator; no test world is used. Their global optima, the
+most any setup can pay in one round, are listed in Appendix~\ref{app:worlds}. All scores below are expressed
+as a share of the world's global optimum so that worlds can be compared. No setup outside the best location
+pays more than 56.3\% of the optimum in any of the eight worlds.
+
+\subsection{Two framings}\label{sec:framings}
+
+\paragraph{Lemonade framing.}
+The agent is told it runs a lemonade stand. Locations have their real names, such as school or stadium, and
+the choices are called sugar, lemon, colour and price. The agent also receives a letter from the previous
+manager describing the setup that worked for him at one location, with its profit, and saying that he never
+tried another location and that other locations may need a very different recipe. The letter's setup is near,
+but not at, the anchor location's ideal, and the anchor location is never the best one.
+
+\paragraph{Alien framing.}
+The worlds and their numbers are identical. Everything else is stripped away. The agent is told it runs a
+business with five decision variables, A to E. Variable A takes the values A1, A2 and A3, which are the three
+locations; B, C and E are sugar, lemon and price; D takes the values D1 and D2, the two colours. Profit is
+called payoff. There is no letter and no recommended starting setup. Feedback has the same content as in the
+lemonade framing, phrased as ``at this value of A, B is higher than ideal''. The alien framing was designed
+following \citet{billinger2014search} and the label manipulation of \citet{austin2026semantic}: keep the
+landscape, change only the words a language model has priors about.
+
+\subsection{Teams and the shared board}\label{sec:board}
+
+A team is \NAgents{} agents of the same model in the same world. Each agent runs its own stand in its own copy
+of the world, so profits are not coupled and every number stays comparable with a single agent. Rounds are in
+lockstep. When sharing is on, a shared board is appended to each agent's prompt listing, for every teammate and
+every round so far, the setup chosen and the profit earned. In the default conditions all three agents choose
+simultaneously from the board as it stood at the end of the previous round. Results are posted to the board
+from round one in every condition, so a board that opens late already carries the private history. The
+agents are not told which score they are being evaluated on. The task instruction in every condition is
+``Your goal is to maximise the overall performance of the business'' (or ``of the lemonade stand''), which
+names neither the best round nor the total. The line is the same in every condition, so it cannot produce a
+difference between conditions, and it leaves the objective to the agent, as the instructions given to most
+deployed agents do. Two details of the board's wording are disclosed in Section~\ref{sec:limitations}.
+
+\subsection{Conditions}\label{sec:conditions}
+
+Nine conditions were run. They differ only in when the board is visible and, in one case, in what the agents
+are told about it. Everything else is identical.
+
+\begin{table}[H]
+  \centering
+  \caption{The nine conditions. Each was run in both framings on the same eight worlds.}
+  \label{tab:conditions}
+  \small
+  \begin{tabular}{p{4.6cm} p{10.2cm}}
+    \toprule
+    Condition & What happens \\
+    \midrule
+    Working alone & No shared board. Three agents play the same world without seeing each other. \\
+    Sharing all along & The board is visible from round 1. \\
+    Sharing after 2 private rounds & The board opens in round 3. \\
+    Sharing after 5 private rounds & The board opens in round 6. \\
+    Sharing after 10 private rounds & The board opens in round 11. \\
+    Sharing after 15 private rounds & The board opens in round 16. \\
+    Sharing at rounds 6, 11 and 16 only & The board is visible only in those three rounds, five rounds apart, and private otherwise. \\
+    Sharing, told to stay different & The board is visible from round 1. Each agent is also told to pick an approach different from the ones already claimed, to adopt a teammate's approach only when its posted result is clearly better, and to keep one variation of its own when it does. \\
+    One agent at a time & The board is visible from round 1. Within each round the agents move in a rotating order (1-2-3, then 2-3-1, then 3-1-2), so the second mover sees the first mover's result from the current round and the third sees both. \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Working alone is the reference. Three agents working alone receive the same \NAttempts{} attempts in a world
+as a sharing team, so the two are scored on the same number of tries.
+
+\subsection{Measures}\label{sec:measures}
+
+All measures are computed per team per world and expressed as a share of the world's global optimum, except
+the count of distinct setups.
+
+\begin{itemize}[leftmargin=*, itemsep=2pt]
+  \item \textbf{Maximum single-round profit (max):} the highest profit any one agent on the team reached in
+    any round, as a share of the global optimum. For working alone this is the best of the three independent
+    agents, so both arms are scored on the best of \NAttempts{} attempts. This measures whether the team
+    found the best setup.
+  \item \textbf{Cumulative earnings:} everything the three agents earned over all \NRounds{} rounds, as a
+    share of what they would have earned by hitting the best setup in every round. This measures what the
+    team earned while it was still searching.
+  \item \textbf{Distinct setups:} the number of different full setups (location, sugar, lemon, colour, price)
+    among the team's \NAttempts{} attempts, pooled across the three agents. This measures how much the team
+    explored.
+  \item \textbf{Reached the best location:} whether the team's max exceeds 60\% of the optimum, which only
+    a setup at the best location can do.
+\end{itemize}
+
+The first two measures are the two goals a team might have, best-arm identification and regret minimisation,
+and the agents are instructed on neither.
+
+\subsection{Model, runs and statistics}\label{sec:stats}
+
+The main runs use GPT-5.6 (gpt-5.6-sol) through the OpenAI API with the provider's default sampling. Each
+condition was run on the eight worlds in both framings. Three follow-ups, each planned before it was run, are
+reported in Section~\ref{sec:results}: working alone and the periodic board on sixteen further worlds in both
+framings, three conditions on a second model, Claude Opus 5.5, and working alone and sharing all along in
+60-round games on the eight worlds. The first run of every condition was made in October 2026. To
+test whether the first run's numbers were a fluke, every condition was then repeated under a plan written
+before any repeat was run: working alone, sharing all along and sharing at rounds 6, 11 and 16 were repeated
+twice more, giving three runs per world, and the other six conditions were repeated once, giving two runs per
+world, in both framings. Repeats use their own environment seeds for the customer-feedback draws. Every planned
+episode completed, and no run was stopped, extended or excluded on the basis of its result.
+
+The unit of analysis is the world. A world's value for a condition is the mean over its runs. Condition means
+in the tables are the mean over the eight worlds of those values, and the figure after $\pm$ is the sample
+standard deviation of the condition's run means across runs, which shows the run-to-run wobble. For each
+contrast we take the paired difference between a sharing condition and working alone within each world, and
+report the mean, a 95\% $t$ interval over the eight world-level differences, and the exact two-sided sign-flip
+permutation test over the eight worlds. The smallest $p$ this test can produce with eight worlds is
+$0.0078$. The headline contrast is the mean of the eight sharing conditions minus working alone, reported
+for the first run alone, for the repeat runs alone and for all runs, so that the reader can see whether the
+first run and the repeats agree.

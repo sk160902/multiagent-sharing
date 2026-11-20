@@ -1,0 +1,26 @@
+Groups find things faster than individuals, and groups that learn from each other too readily settle on
+worse answers than their members would have found alone. Multi-agent systems built from large language
+models (LLMs) commonly give every agent a view of its peers' attempts and results, on the assumption that an
+agent should not have to rediscover what a teammate already found. We ask whether that sharing helps or hurts when the task is to find the best setup in a landscape with a
+local optimum, where each round's profit is an exact score for that round but a poor guide to where the best
+setup lies, because every setup on the way to it pays less than the one the agent starts from. We use a reimplementation of the lemonade-stand game of \citet{ederer2013pay}: an agent chooses a
+location, a recipe and a price for \NRounds{} rounds, is paid a profit each round, and the best location pays
+about twice the one it is pointed to at the start. Teams of \NAgents{} GPT-5.6 agents, each told only to
+maximise the overall performance of the business, play \NWorlds{} hidden worlds under nine conditions that
+differ only in when a shared board of every teammate's moves and profits is visible, and in two framings: the
+lemonade framing, with the original wording and a letter from the previous manager recommending a setup, and
+an alien framing in which the same worlds are described as five unlabelled decision variables with no letter.
+We show three results that hold in both framings. Sharing cuts the number of distinct setups a team tries roughly in half
+(\AllBothUniq{} of \NAttempts{}, $p=\AllBothUniqP$). Sharing raises the team's cumulative earnings over the
+\NRounds{} rounds (\AllBothSum{} percentage points of the ceiling, $p=\AllBothSumP$). Sharing lowers the
+best single-round profit any teammate reaches, by \AllBothMax{} points on average and in every run, but with
+\NWorlds{} worlds this last difference is not statistically reliable ($p=\AllBothMaxP$). The later the
+board opens, the more the team explores. Agents that can see each other copy whoever is doing best, which
+pays in the current round and tends to lock the team onto a good but not best location. The two conditions
+that sit level with working alone on the best round are those that keep exploration near the working-alone
+level: a board visible in only three rounds, and an instruction to stay different from one's teammates. A
+follow-up on sixteen further worlds confirms, in both framings, that the three-round board is level with working
+alone on the best round, and a replication of three conditions on Claude Opus 5.5 reproduces the drop in exploration and the
+gain in cumulative earnings. A 60-round version of working alone and sharing all along shows that the trade
+depends on the horizon and on the letter: with the letter, the drop in the max closes and the cumulative lead
+of sharing grows; without it, the drop in the max persists and the cumulative lead disappears.

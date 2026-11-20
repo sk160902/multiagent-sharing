@@ -1,0 +1,195 @@
+\appendix
+
+\section{Technical Appendices and Supplementary Material}
+
+Appendix~\ref{app:prompts} gives the prompts verbatim in both framings, the shared board as the agents see it,
+and the stay-different instruction. Appendix~\ref{app:worlds} lists the eight worlds' global optima and the
+generator's ranges. Appendix~\ref{app:perworld} gives the per-world values behind every mean in
+Table~\ref{tab:main}. Appendix~\ref{app:agree} reports, per condition, whether the repeat runs fell on the same
+side of working alone as the first run. Appendix~\ref{app:runs} records when the runs were made and what they
+cost.
+
+\subsection{Prompts}\label{app:prompts}
+
+The system prompt below is the one used in every condition; it names neither the best round nor the total.
+The world shown is the first of the eight. In the lemonade framing the previous manager's letter is included;
+in the alien framing it is not. The user turn carries the agent's own history and, when the board is visible,
+the board.
+
+\paragraph{Lemonade framing, system prompt.}
+\begin{small}
+\begin{verbatim}
+You run a lemonade stand for 20 rounds. Each round you choose a full product
+configuration and observe the profit plus a customer comment.
+
+Choices:
+  location: one of business, school, stadium
+  sugar:    a number 0.0-10.0 (one decimal)
+  lemon:    a number 0.0-10.0 (one decimal)
+  color:    green or pink
+  price:    a number 0.0-10.0 (one decimal)
+
+A letter from the previous manager:
+  "I ran this stand for years. My best setup was location=stadium, sugar=4.4,
+  lemon=0.4, color=green, price=0.0, which earned about 90 francs per round.
+  I tried many recipes at that location but never tried a different location.
+  Other locations may need a very different recipe."
+
+Your goal is to maximise the overall performance of the business.
+
+Reply with ONLY a JSON object, no other text:
+{"location": "...", "sugar": 0.0, "lemon": 0.0, "color": "...", "price": 0.0}
+\end{verbatim}
+\end{small}
+
+\paragraph{Alien framing, system prompt.}
+\begin{small}
+\begin{verbatim}
+You run a business with five decision variables for 20 rounds. Each round you
+choose a full combination and observe the payoff plus a feedback line.
+
+Choices:
+  A: one of A1, A2, A3
+  B:    a number 0.0-10.0 (one decimal)
+  C:    a number 0.0-10.0 (one decimal)
+  D:    D1 or D2
+  E:    a number 0.0-10.0 (one decimal)
+
+Your goal is to maximise the overall performance of the business.
+
+Reply with ONLY a JSON object, no other text:
+{"A": "...", "B": 0.0, "C": 0.0, "D": "...", "E": 0.0}
+\end{verbatim}
+\end{small}
+
+\paragraph{User turn.}
+The first user turn reads ``Round 1 of 20. No rounds played yet. What is your choice?''. From round two
+onward it lists the agent's own history, one line per round, then the round number. In the lemonade framing a
+line reads
+\begin{small}
+\begin{verbatim}
+  round  1: location=stadium, sugar=4.4, lemon=0.4, color=green, price=0.0
+  -> profit 89.7. Many of your customers at this location told you the
+  lemonade is too sweet.
+\end{verbatim}
+\end{small}
+and in the alien framing the same round reads
+\begin{small}
+\begin{verbatim}
+  round  1: A=A3, B=4.4, C=0.4, D=D1, E=0.0 -> payoff 89.7. Feedback: at this
+  value of A, B is higher than ideal.
+\end{verbatim}
+\end{small}
+
+\paragraph{The shared board.}
+When the board is visible it is appended to the user turn. Its header and its post lines are the same in both
+framings:
+\begin{small}
+\begin{verbatim}
+Shared notes board. You and 2 other stand owners run your own stands in the
+same town and post what you tried and what it earned. Everything below is a
+measured result, not an opinion.
+owner 1, round 1: location=stadium, sugar=4.4, lemon=0.4, colour=green,
+price=0.0 -> earned 89.7
+\end{verbatim}
+\end{small}
+Posts accumulate in order, most recent last, for all three agents. As noted in Section~\ref{sec:limitations},
+the board uses the lemonade vocabulary in the alien framing as well.
+
+\paragraph{The stay-different instruction.}
+In the ``sharing, told to stay different'' condition the following text is appended under the board in every
+round in which it is visible:
+\begin{small}
+\begin{verbatim}
+How to use the board: pick an approach that is different from the ones already
+claimed above. Adopt another owner's approach only after their posted result is
+clearly better than yours, and when you do, keep one deliberate variation of
+your own rather than copying it exactly.
+\end{verbatim}
+\end{small}
+
+\subsection{Worlds}\label{app:worlds}
+
+The generator draws three locations. The anchor location has a ceiling drawn from 90 to 110 and penalty slopes
+of 5 to 7 per unit on sugar, lemon and price, with a colour penalty of 15 to 25. The best location has a ceiling
+from 180 to 220, slopes of 5 to 7 and a colour penalty of 50 to 70. The third location has a ceiling from 50
+to 75, slopes below 1 and a colour penalty below 1. Each location's ideal sugar, lemon and price are drawn
+uniformly from 0 to 10 and its ideal colour at random. The letter's setup is placed near, but not at, the
+anchor location's ideal. A drawn world is kept only if moving to the best location while keeping the letter's
+recipe pays strictly less than the letter's setup, if the optimum differs from the letter's setup in at least
+three variables, and if the anchor is a reasonable local optimum. The eight worlds are the first eight of the
+generator's validation split. Their global optima, in profit per round, are the same in both framings:
+
+\begin{table}[H]
+  \centering
+  \small
+  \begin{tabular}{l rrrrrrrr}
+    \toprule
+    & W1 & W2 & W3 & W4 & W5 & W6 & W7 & W8 \\
+    \midrule
+    Global optimum & 203.8 & 199.9 & 211.0 & 190.0 & 216.6 & 193.4 & 193.7 & 200.9 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Per-world values}\label{app:perworld}
+
+Each cell is the mean over that world's runs. Max and cumulative earnings are shares of the world's global
+optimum in percent; distinct setups are counts out of \NAttempts{}. The final column weights each world
+equally.
+
+\begin{table}[H]
+  \centering \small \setlength{\tabcolsep}{4pt}
+  \caption{Lemonade framing: maximum single-round profit.}
+  \input{tables/tab_world_lemonade_best_peak}
+\end{table}
+\begin{table}[H]
+  \centering \small \setlength{\tabcolsep}{4pt}
+  \caption{Alien framing: maximum single-round profit.}
+  \input{tables/tab_world_alien_best_peak}
+\end{table}
+\begin{table}[H]
+  \centering \small \setlength{\tabcolsep}{4pt}
+  \caption{Lemonade framing: cumulative earnings over 20 rounds.}
+  \input{tables/tab_world_lemonade_sum_pct}
+\end{table}
+\begin{table}[H]
+  \centering \small \setlength{\tabcolsep}{4pt}
+  \caption{Alien framing: cumulative earnings over 20 rounds.}
+  \input{tables/tab_world_alien_sum_pct}
+\end{table}
+\begin{table}[H]
+  \centering \small \setlength{\tabcolsep}{4pt}
+  \caption{Lemonade framing: distinct setups tried.}
+  \input{tables/tab_world_lemonade_unique}
+\end{table}
+\begin{table}[H]
+  \centering \small \setlength{\tabcolsep}{4pt}
+  \caption{Alien framing: distinct setups tried.}
+  \input{tables/tab_world_alien_unique}
+\end{table}
+
+\subsection{First run against the repeats}\label{app:agree}
+
+For each of the eight sharing conditions, each measure and each framing, we ask whether the repeat runs' mean
+difference from working alone has the same sign as the first run's. Table~\ref{tab:agree} counts the
+agreements. The four exceptions are cells whose difference was within 7 points or 3 setups of zero both
+times.
+
+\begin{table}[H]
+  \centering
+  \caption{Number of sharing conditions (of eight) whose repeat runs fall on the same side of working alone as the first run.}
+  \label{tab:agree}
+  \small
+  \input{tables/tab_agree}
+\end{table}
+
+\subsection{Run log}\label{app:runs}
+
+The first run of every condition was made between 30 September and 21 October 2026. The repeat design,
+including which conditions would get two more runs and which one more, the per-condition spending caps and
+the analysis in Section~\ref{sec:stats}, was written down before any repeat was run. The repeats were run on
+4 and 5 November 2026 and cost \$122.63 in API charges. A repeat run reuses the first run's prompts, flags and
+worlds and changes only the environment seed for the customer-feedback draws. Every planned episode
+completed; no episode failed to parse and no condition was stopped by its cap. Analysis code and run logs:
+\todo{repository link}.

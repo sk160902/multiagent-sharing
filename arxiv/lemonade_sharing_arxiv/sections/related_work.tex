@@ -1,0 +1,41 @@
+\section{Related Work}\label{sec:related}
+
+\paragraph{Exploration and exploitation in groups.}
+\citet{march1991exploration} modelled an organisation whose members learn from a shared code and showed that
+faster mutual learning raises average knowledge early and lowers it in the long run, because the code absorbs
+the members' beliefs before the best belief has been found. \citet{lazer2007network} placed agents on an NK
+landscape \citep{levinthal1997adaptation} and varied how densely they were connected: dense networks spread the
+current best solution quickly, which raises short-run performance and lowers the long-run outcome, while
+sparse networks keep diversity alive long enough to find better regions. \citet{fang2010balancing} found that
+semi-isolated subgroups that occasionally exchange information outperform both fully connected and fully
+isolated groups. Experiments with people reproduce the pattern. \citet{mason2012collaborative} let networked
+participants search a landscape with a hidden peak and found that efficient networks did better on average
+but could converge prematurely, and \citet{derex2016partial} found that partially connected groups accumulated
+more cultural innovation than fully connected ones. Our periodic-board condition and our private-rounds
+ladder are direct analogues of the sparse and semi-isolated structures in this literature, run with LLM agents
+instead of simulated or human ones.
+
+\paragraph{Search on rugged landscapes with people.}
+\citet{ederer2013pay} designed the lemonade-stand game to test whether paying for early performance deters
+exploration of a strategy that is better in the long run but worse at first. Participants who were paid every
+period stayed near the recommended setup; participants whose early failures were tolerated explored more and
+more often found the better location. \citet{billinger2014search} ran a related experiment on NK landscapes
+and found that people search less than the landscape warrants, especially after early success. We keep the
+game, the valley and the letter, and change the question from how the individual is paid to what the
+individual can see of others.
+
+\paragraph{LLM agents and exploration.}
+Frozen LLMs explore poorly in bandit problems: they fail to return to the best arm, or play nearly uniformly,
+except under engineered prompts \citep{krishnamurthy2024explore}, and their failures are greedy
+\citep{schmied2025greedy}. Their exploration is also shaped by what the arms are called:
+\citet{austin2026semantic} vary the labels of a bandit and find that semantic priors bias which arms are
+tried. Our alien framing follows that idea. It keeps every number in the world and changes only the words,
+so that any difference between framings is attributable to the labels and to the recommended starting setup,
+not to the landscape.
+
+\paragraph{Communication between LLM agents.}
+Generative-agent systems let LLM agents observe and talk to one another \citep{park2023generative}, and
+\citet{park2026scaling} study the minimal case we start from: identical agents, one shared workspace, no roles
+and no orchestrator. They find that sharing beats the best of $k$ independent agents when a verifier ranks
+partial progress correctly and that the advantage disappears when it cannot. Our world is the case they leave
+open: a verifier that is correct about the current round and misleading about the direction of the best one.

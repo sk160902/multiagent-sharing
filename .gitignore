@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+results/multiagent/logs/
+results/multiagent/*.tmp
+
+# API credentials: never tracked
+working_apis/
+*api_key*
+*_key.txt
+*token*.txt
+.env
