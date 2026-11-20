@@ -20,8 +20,8 @@ finding the best location, because the agent doing best so far is usually at a l
 not the best, and the best location pays badly until its recipe is found. In the lemonade framing the
 manager's letter seems to make this worse: all three agents start near the letter's location, so the board
 shows them three versions of the same wrong answer. Telling agents to stay different keeps exploration at the
-working-alone level in both framings, and it brings the max back to the working-alone level in the alien
-framing but not in the lemonade framing. One reading is that exploring widely is necessary for finding the
+working-alone level in both framings, and it brings the max to \AliProtocolMaxDiff{} points of working alone in
+the alien framing and \LemProtocolMaxDiff{} in the lemonade framing. One reading is that exploring widely is necessary for finding the
 ceiling but not sufficient. One agent at a time explores least of all and still earns the most in the
 lemonade framing: each agent sees the two moves before its own in every round and refines them, which is a
 good way to climb a hill and a poor way to find out whether there is a higher hill elsewhere.

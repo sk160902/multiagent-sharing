@@ -216,6 +216,10 @@ n, d = W["reached"]["lemonade|share"]; macros["LemShareReached"] = f"{n} of {d}"
 n, d = W["reached"]["alien|share"]; macros["AliShareReached"] = f"{n} of {d}"
 same = sum(agree[k]["same_side"] for k in agree); of = sum(agree[k]["of"] for k in agree)
 macros["AgreeSame"] = str(same); macros["AgreeOf"] = str(of)
+# the one cell whose first-run and repeat estimates differ by more than the others: the alien periodic board's max
+fr_, nw_, _ = agree["alien|best_peak"]["rows"]["share_at6-11-16"]
+macros["AgreeAliPeriodicFirst"] = f"{fr_:+.0f}"; macros["AgreeAliPeriodicRepeat"] = f"{nw_:+.0f}"
+macros["AgreeExceptions"] = str(of - same)
 
 # ---------------------------------------------------------------- 24-world follow-ups (stats_worlds24*.json), if present
 # Alien framing: macros W<New|All><Max|Sum|Uniq|Reached>...; lemonade framing (addendum 2026-11-19): WL<...>.
