@@ -192,8 +192,10 @@ equally.
 
 For each of the eight sharing conditions, each measure and each framing, we ask whether the repeat runs' mean
 difference from working alone has the same sign as the first run's. Table~\ref{tab:agree} counts the
-agreements. The four exceptions are cells whose difference was within 7 points or 3 setups of zero both
-times.
+agreements. Of the \AgreeExceptions{} exceptions, five are on the max and one is a distinct-setups cell within 3
+setups of zero both times; four of the five max cells are within 7 points of zero both times, and the fifth, the
+periodic board in the alien framing, is \AgreeAliPeriodicFirst{} points in the first run and
+\AgreeAliPeriodicRepeat{} in the repeats.
 
 \begin{table}[H]
   \centering
@@ -205,14 +207,13 @@ times.
 
 \subsection{Run log}\label{app:runs}
 
-Every condition was run once first. The repeat design, including which conditions would get two more runs and
-which one more, the per-condition spending caps and the analysis in Section~\ref{sec:stats}, was written down
-before any repeat was run. The repeats cost \$122.63 in API charges. A repeat run reuses the first run's
-prompts, flags and worlds and changes only the environment seed for the customer-feedback draws. Every planned
-episode completed; no episode failed to parse and no condition was stopped by its cap. The follow-ups were
-planned the same way, with design, spending caps and analysis written down before launch, and were run in
-this order: working alone and the periodic board on the sixteen further worlds in the alien framing
-(\$43.00); the three conditions on Claude Opus 5.5 (\$60.26); the 60-round games (\$280.65); and the sixteen
-further worlds in the lemonade framing (\$43.01). In each, every planned episode completed and no condition was stopped by its cap. The
-pre-registration document with every addendum, the launchers, every episode record and the analysis scripts
+Every condition was run on the eight pilot worlds two or three times, the number of runs per condition fixed in
+advance, with per-condition spending caps and the analysis in Section~\ref{sec:stats}. The runs of a condition are
+indexed, and Appendix~\ref{app:agree} compares the first with the rest. A repeat run reuses the first run's
+prompts, flags and worlds and changes only the environment seed for the customer-feedback draws. The follow-ups,
+each with design, spending caps and analysis written down before launch, were the periodic board and working alone
+on the sixteen further worlds in both framings, the three conditions on Claude Opus 5.5, and the 60-round games.
+Every reported episode completed, none failed to parse, and no condition was stopped by its cap. The runs reported
+in the paper cost \$640.95 in API charges. The pre-registration document with every addendum, the launchers, every
+episode record and the analysis scripts
 are in the repository at \url{https://github.com/sk160902/multiagent-sharing}.
