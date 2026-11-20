@@ -17,8 +17,8 @@ Each round, the model receives two messages. The first is the system prompt: the
 below, which are the same in every round and every condition and which name neither the best round nor the
 total. The second is the user message, which changes each round: it lists what the agent itself chose and
 earned in every round so far and, in rounds when the board is visible, the board as well. The world shown
-below is the first of the eight. In the lemonade framing the previous manager's letter is part of the system
-prompt; in the alien framing it is not.
+below is one of the eight pilot worlds; the lines quoted from it are taken from recorded episodes. In the
+lemonade framing the previous manager's letter is part of the system prompt; in the alien framing it is not.
 
 \paragraph{Lemonade framing, system prompt.}
 \begin{small}
@@ -27,15 +27,15 @@ You run a lemonade stand for 20 rounds. Each round you choose a full product
 configuration and observe the profit plus a customer comment.
 
 Choices:
-  location: one of business, school, stadium
+  location: one of beach, business, stadium
   sugar:    a number 0.0-10.0 (one decimal)
   lemon:    a number 0.0-10.0 (one decimal)
   color:    green or pink
   price:    a number 0.0-10.0 (one decimal)
 
 A letter from the previous manager:
-  "I ran this stand for years. My best setup was location=stadium, sugar=4.4,
-  lemon=0.4, color=green, price=0.0, which earned about 90 francs per round.
+  "I ran this stand for years. My best setup was location=stadium, sugar=2.0,
+  lemon=5.5, color=green, price=3.5, which earned about 80 francs per round.
   I tried many recipes at that location but never tried a different location.
   Other locations may need a very different recipe."
 
@@ -68,20 +68,20 @@ Reply with ONLY a JSON object, no other text:
 
 \paragraph{User message.}
 In round one the user message reads ``Round 1 of 20. No rounds played yet. What is your choice?''. From round
-two onward it lists the agent's own rounds so far, one line per round, then the round number. In the lemonade framing a
-line reads
+two onward it lists the agent's own rounds so far, one line per round, then the round number. In the lemonade
+framing a line reads
 \begin{small}
 \begin{verbatim}
-  round  1: location=stadium, sugar=4.4, lemon=0.4, color=green, price=0.0
-  -> profit 89.7. Many of your customers at this location told you the
-  lemonade is too sweet.
+  round  1: location=stadium, sugar=2.0, lemon=5.5, color=green, price=3.5
+  -> profit 80.4. Many of your customers at this location told you the
+  lemonade is not sour enough.
 \end{verbatim}
 \end{small}
-and in the alien framing the same round reads
+and in the alien framing a line reads
 \begin{small}
 \begin{verbatim}
-  round  1: A=A3, B=4.4, C=0.4, D=D1, E=0.0 -> payoff 89.7. Feedback: at this
-  value of A, B is higher than ideal.
+  round  1: A=A1, B=5.0, C=5.0, D=D1, E=5.0 -> payoff 50.2. Feedback: at this
+  value of A, C is lower than ideal.
 \end{verbatim}
 \end{small}
 
@@ -93,11 +93,17 @@ are the same in both framings:
 Shared notes board. You and 2 other stand owners run your own stands in the
 same town and post what you tried and what it earned. Everything below is a
 measured result, not an opinion.
-owner 1, round 1: location=stadium, sugar=4.4, lemon=0.4, colour=green,
-price=0.0 -> earned 89.7
+owner 1, round 1: location=stadium, sugar=2.0, lemon=5.5, colour=green,
+price=3.5 -> earned 80.4
+owner 2, round 1: location=business, sugar=2.0, lemon=5.5, colour=green,
+price=3.5 -> earned 37.4
+owner 3, round 1: location=stadium, sugar=2.0, lemon=5.5, colour=green,
+price=3.5 -> earned 80.4
 \end{verbatim}
 \end{small}
-Posts accumulate in order, most recent last, for all three agents. As noted in Section~\ref{sec:limitations},
+This is the board after round 1 of a recorded sharing team in the same world: two agents played the letter's
+setup, one moved it to another location and fell into the valley. Posts accumulate in order, most recent
+last, for all three agents. As noted in Section~\ref{sec:limitations},
 the board uses the lemonade vocabulary in the alien framing as well.
 
 \paragraph{Stay-different instruction.}
