@@ -80,7 +80,7 @@ are told about it. Everything else is identical.
     Sharing after 5 private rounds & The board opens in round 6. \\
     Sharing after 10 private rounds & The board opens in round 11. \\
     Sharing after 15 private rounds & The board opens in round 16. \\
-    Sharing at rounds 6, 11 and 16 only & The board is visible only in those three rounds, five rounds apart, and private otherwise. \\
+    Sharing at rounds 6, 11 and 16 only & The board is visible only in those three rounds, five rounds apart, and private otherwise. We call this the periodic board. \\
     Sharing, told to stay different & The board is visible from round 1. Each agent is also told to pick an approach different from the ones already claimed, to adopt a teammate's approach only when its posted result is clearly better, and to keep one variation of its own when it does. \\
     One agent at a time & The board is visible from round 1. Within each round the agents move in a rotating order (1-2-3, then 2-3-1, then 3-1-2), so the second mover sees the first mover's result from the current round and the third sees both. \\
     \bottomrule
@@ -88,7 +88,8 @@ are told about it. Everything else is identical.
 \end{table}
 
 Working alone is the reference. Three agents working alone receive the same \NAttempts{} attempts in a world
-as a sharing team, so the two are scored on the same number of tries.
+as a sharing team, so the two are scored on the same number of tries. Where the text says the periodic board it
+means the condition in which the board is visible only at rounds 6, 11 and 16.
 
 \subsection{Measures}\label{sec:measures}
 
