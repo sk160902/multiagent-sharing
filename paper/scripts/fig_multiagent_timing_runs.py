@@ -33,16 +33,17 @@ ax.axhline(lem_solo, color=LEM, lw=1.4, ls=(0, (7, 4)), zorder=2)
 ax.axhline(ali_solo, color=ALI, lw=1.4, ls=(0, (7, 4)), zorder=2)
 # labels sit diagonally off each point, on the side its line and its bar leave free
 LEM_OFF = {1: (-10, 12), 3: (-10, -12), 6: (-10, -12), 11: (-10, -12), 16: (10, -12)}
-ALI_OFF = {1: (10, -12), 3: (10, 12), 6: (10, -12), 11: (10, -12), 16: (10, 26)}
+ALI_OFF = {1: (10, 12), 3: (0, 24), 6: (-10, 10), 11: (10, -12), 16: (10, 26)}
 for series, xs, off in ((lem, xl, LEM_OFF), (ali, xa, ALI_OFF)):
     for x0, xi, v in zip(x, xs, series):
         dx, dy = off[x0]
-        ax.annotate(f"{v:.1f}", (xi, v), textcoords="offset points", xytext=(dx, dy), ha="right" if dx < 0 else "left",
+        ax.annotate(f"{v:.1f}", (xi, v), textcoords="offset points", xytext=(dx, dy), ha="right" if dx < 0 else ("center" if dx == 0 else "left"),
                     va="bottom" if dy > 0 else "top", fontsize=12)
-ax.text(7.2, ali_solo + 0.8, f"alien alone {ali_solo:.1f}", ha="left", va="bottom", fontsize=11, color=ALI)
-ax.text(7.2, lem_solo - 0.8, f"lemonade alone {lem_solo:.1f}", ha="left", va="top", fontsize=11, color=LEM)
+# the working-alone labels sit to the right of the last points, where no line, bar or point label reaches
+ax.text(16.8, ali_solo + 0.5, f"alien alone {ali_solo:.1f}", ha="left", va="bottom", fontsize=11, color=ALI)
+ax.text(16.8, lem_solo - 0.5, f"lemonade alone {lem_solo:.1f}", ha="left", va="top", fontsize=11, color=LEM)
 ax.set_xticks(x, ["1 (all along)", "3", "6", "11", "16"])
-ax.set_xlim(-0.3, 17.4)
+ax.set_xlim(-0.3, 20.3)
 ax.set_ylim(55, 96)
 ax.set_yticks(range(60, 100, 10))
 ax.set_xlabel("Round in which the shared board opens", labelpad=10)
