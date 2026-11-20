@@ -50,15 +50,16 @@ world, in every run and in both framings. Second, sharing raises cumulative earn
 rounds in every sharing condition, because agents copy whoever is currently doing best and copying pays in
 the current round. Third, sharing lowers the best single-round profit any teammate reaches. The size of the
 drop is similar in the first run and in the repeats, but with \NWorlds{} worlds it is not statistically
-reliable, and we say so. The two sharing conditions that come out level with working alone on the best round
-are those that preserve exploration: a board visible in only three rounds, and the stay-different instruction.
-Nothing we ran makes sharing beat working alone on the best round. A direct test of the three-round board on
-sixteen further worlds confirms it is level with working alone in both framings, and a replication of three conditions on Claude
+reliable, and we say so. The sharing conditions that come closest to working alone on the best round are those
+that preserve exploration: a board that opens late or in only three rounds, and the stay-different
+instruction. Nothing we ran puts sharing reliably above working alone on the best round. A direct test of the
+three-round board on sixteen further worlds puts it within a few points of working alone in both framings, and
+a replication of three conditions on Claude
 Opus 5.5 reproduces the exploration and earnings results, with the drop in the best round appearing in the
 lemonade framing but not in the alien framing. A 60-round version of the two main conditions shows that the
 trade is horizon-dependent in a way that turns on the letter: given time, sharing teams that start from a
 common recommendation leave it and lose nothing on the best round while earning more, whereas teams with no
-recommendation stay below working alone on the best round and lose their earnings lead.
+recommendation stay below working alone on the best round and keep a smaller earnings lead.
 
 The contribution is a clean testbed and a measured answer. The testbed is small, deterministic and cheap to
 run, has a known global optimum in every world, and separates the two things a team might want: the

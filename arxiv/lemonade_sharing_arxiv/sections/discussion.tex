@@ -7,9 +7,9 @@ cares about the ceiling seems to do better keeping its agents apart for a while.
 total seems to do better letting them copy each other. The 60-round runs show that this trade is a horizon
 effect, and that it resolves in opposite directions depending on the letter. With the letter, it dissolves in
 sharing's favour: given time, sharing teams leave the recommended location, reach the same ceiling as agents
-working alone, and keep a larger cumulative lead. Without the letter, it dissolves the other way: the sharing
-teams' ceiling stays \HAliMaxFull{} points below, and the lone agents' wider search pays back by round 60, so
-the cumulative lead of sharing is gone. What sharing buys, on this reading, is a faster climb up whatever hill
+working alone, and keep a larger cumulative lead. Without the letter, it persists in weakened form: the sharing
+teams' ceiling stays \HAliMaxFull{} points below, and the lone agents' wider search recovers part of the
+earnings lead by round 60 without erasing it. What sharing buys, on this reading, is a faster climb up whatever hill
 the team starts on. Whether that is the right hill is set by where the agents start, and the letter gives every
 agent the same start.
 
@@ -31,8 +31,9 @@ Two results are established on this testbed: sharing cuts distinct setups roughl
 raises cumulative earnings. Both hold in every run and both pass the pre-specified test in each framing. The
 drop in the max is consistent across runs and framings but is not statistically reliable with eight worlds,
 and we report it as a consistent direction, not as a finding. No sharing
-condition beats working alone on the max; the two that come out level with it do so by one extra world-run
-and are within the run-to-run noise.
+condition is reliably above working alone on the max; the two that sit above it in the alien framing, a board
+opening at round 6 or 16, do so by a few points with intervals that include zero, and are below it in the
+lemonade framing.
 The paired test over eight worlds has low power for a best-of-sixty measure, so a reader who wants the max
 result settled either way should expect it to need several times as many worlds.
 
@@ -45,18 +46,8 @@ results change when the objective is stated, as the total over the game or as th
 untested. The second model covers
 three of
 the nine conditions, and on it the drop in the max appears in only one
-framing, so the max result should be read as model-dependent until more models are run. Two details of
-the alien framing should be known when reading its numbers. First, the shared board is rendered with the
-lemonade vocabulary in both framings: its posts name the location and the variables as ``location'',
-``sugar'', ``lemon'', ``colour'' and ``price'' and its header describes the agents as stand owners, so an
-alien-framing agent that reads the board sees lemonade words there, while its own prompt uses A to E. The
-agent's own posts appear on the board, so it can align the two vocabularies, but the alien sharing conditions
-are less fully stripped of lemonade priors than the alien working-alone condition. Second, the alien labels
-A1 to A3 follow the world's internal ordering of locations rather than a per-episode shuffle, and under that
-ordering the first-listed location is never the best in any of the eight worlds; alien agents spend more
-attempts at the first-listed location than lemonade agents do. Both details apply equally to every alien
-condition, so the within-framing contrasts that this paper reports are unaffected, but we do not compare
-levels across framings. Finally, the max is a best-of-three measure. Each agent's own best round is higher
+framing, so the max result should be read as model-dependent until more models are run. We do not compare
+levels across framings; every contrast in the paper is within one. Finally, the max is a best-of-three measure. Each agent's own best round is higher
 under sharing, so the team-level drop is a statement about the ceiling of the best member, not about the
 typical agent.
 

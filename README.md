@@ -19,7 +19,9 @@ experiments/shared_world.py    the multi-agent experiment: k agents, lockstep ro
 scripts/             launchers for each block of runs (detached, resumable, per-arm dollar caps)
 paper/scripts/       the fixed analyses and the table generator for the paper
 data/worlds_main.json          the world set; the pilot worlds are val[:8], the extension worlds val[16:32]
-results/multiagent/  one JSONL record per agent-episode for every condition, spend files, statistics output
+results/multiagent/  one JSONL record per agent-episode for every condition, spend files, statistics output;
+                     alien_board_leak_2026-11-20/ holds the alien sharing runs made before the board was
+                     rendered in the alien vocabulary (kept for the record, not analysed; see its README)
 docs/PILOT_MULTIAGENT.md       the pre-registration document: design, metrics and analysis fixed before each run
 arxiv/lemonade_sharing_arxiv/  LaTeX source of the paper; every number is a generated macro
 ```

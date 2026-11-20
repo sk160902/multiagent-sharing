@@ -30,6 +30,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from agents.llm_agent import build_messages, parse_action  # noqa: E402
+from agents.vocab import for_world  # noqa: E402
 from analysis import metrics as M  # noqa: E402
 from env.lemonade_env import LemonadeEnv  # noqa: E402
 from env.world_generator import load_world_set, world_id  # noqa: E402
@@ -56,27 +57,65 @@ def setup_suffix(label, hint, letter):
     parts += (([] if hint else ["nohint"]) if letter else ["noletter"])
     return ("_" + "-".join(parts)) if parts else ""
 
+# The board is rendered through the same vocabulary as the agent's own prompt (2026-11-20). Until then it was
+# rendered with the lemonade words and the raw location and colour names in every framing, so an alien-framing
+# agent in a sharing condition saw "location=stadium ... colour=green" and "stand owners" on the board while its
+# own prompt said A1 and D1. Runs made before this date in the alien sharing arms are in
+# results/multiagent/alien_board_leak_2026-11-20/ and are not analysed. The lemonade rendering is unchanged, byte
+# for byte, so nothing in the lemonade arms moves.
 BOARD_INTRO = ("Shared notes board. You and {others} other stand owners run your own stands in the same town and post "
                "what you tried and what it earned. Everything below is a measured result, not an opinion.")
+BOARD_INTRO_GENERIC = ("Shared notes board. You and {others} other operators each run a {org} of the same kind and post "
+                       "what you tried and what it earned. Everything below is a measured result, not an opinion.")
 PROTOCOL = (
     "\nHow to use the board: pick an approach that is different from the ones already claimed above. Adopt another "
-    "owner's approach only after their posted result is clearly better than yours, and when you do, keep one "
+    "{noun}'s approach only after their posted result is clearly better than yours, and when you do, keep one "
     "deliberate variation of your own rather than copying it exactly.")
 
 
-def board_text(posts, k, protocol):
+def post_noun(v):
+    return "owner" if v.name == "semantic" else "operator"
+
+
+def render_post(p, v):
+    """One board line in vocabulary `v`. The semantic (lemonade) line is the pilot's wording, byte for byte."""
+    a = p["action"]
+    if v.name == "semantic":
+        return (f"owner {p['agent']}, round {p['round']}: location={a['location']}, sugar={a['sugar']}, "
+                f"lemon={a['lemon']}, colour={a['color']}, price={a['price']} -> earned {p['profit']:.1f}")
+    return (f"{post_noun(v)} {p['agent']}, round {p['round']}: {v.loc_word}={v.loc_out(a['location'])}, "
+            f"{v.var_out('sugar')}={a['sugar']}, {v.var_out('lemon')}={a['lemon']}, "
+            f"{v.color_key}={v.color_out(a['color'])}, {v.var_out('price')}={a['price']} "
+            f"-> {v.gain_word} {p['profit']:.1f}")
+
+
+def board_text(posts, k, protocol, v):
     """The shared board as the agents see it: every agent's action and profit, most recent last."""
-    if not posts:
-        body = "No results posted yet."
-    else:
-        body = "\n".join(posts)
-    out = BOARD_INTRO.format(others=k - 1) + "\n" + body
-    return out + (PROTOCOL if protocol else "")
+    body = "\n".join(render_post(p, v) for p in posts) if posts else "No results posted yet."
+    intro = BOARD_INTRO if v.name == "semantic" else BOARD_INTRO_GENERIC.format(others=k - 1, org=v.org_word)
+    out = intro.format(others=k - 1) + "\n" + body
+    return out + (PROTOCOL.format(noun=post_noun(v)) if protocol else "")
 
 
-def post_line(agent, rnd, action, profit):
-    return (f"owner {agent}, round {rnd}: location={action['location']}, sugar={action['sugar']}, "
-            f"lemon={action['lemon']}, colour={action['color']}, price={action['price']} -> earned {profit:.1f}")
+# Words that must not reach an alien-framing agent anywhere in its prompt. Checked on every call in that framing.
+LEMONADE_WORDS = ("lemonade", "lemon", "sugar", "price", "location", "colour", "color", "stand", "town", "francs",
+                  "green", "pink", "owner", "recipe", "customer", "business district", "school", "stadium", "park",
+                  "beach", "office_park", "office park")
+
+
+def assert_no_lemonade(messages, world, org_word="business"):
+    """Raise if an alien-framing prompt carries any lemonade word, location name or colour name.
+
+    The alien framing itself says "a business with five decision variables", so the word `business` is allowed in
+    prose; a location of that name may still never appear as a value (`A=business`), which is checked separately."""
+    import re
+    text = "\n".join(m["content"] for m in messages).lower()
+    words = set(LEMONADE_WORDS) | {l.lower().replace("_", " ") for l in world.location_names} | set(world.location_names)
+    words.discard(org_word)
+    hits = [w for w in words if re.search(r"(?<![a-z])" + re.escape(w) + r"(?![a-z])", text)]
+    hits += ["=" + l for l in world.location_names if re.search(r"=\s*" + re.escape(l.lower()) + r"(?![a-z])", text)]
+    if hits:
+        raise RuntimeError(f"alien framing prompt contains lemonade words: {sorted(hits)}")
 
 
 def with_board(msgs, text):
@@ -115,10 +154,14 @@ def run_team(client, world, wid, rep, k, share, protocol, seed0, share_from=1, s
     board_leader = []          # the location of the best posted result at the time of each choice, for herding
     copied = [0] * k
 
+    v = for_world(label, world)                                   # the board is rendered in the agent's own vocabulary
+
     def ask(i, text_now, visible):
         msgs = build_messages(world, PROMPT, envs[i].history, horizon, label=label, hint=hint, letter=letter)
         if visible:
             msgs = with_board(msgs, text_now)
+        if label == "alien":
+            assert_no_lemonade(msgs, world)
         return client.generate(msgs)
 
     def take(i, reply, best_loc):
@@ -141,19 +184,19 @@ def run_team(client, world, wid, rep, k, share, protocol, seed0, share_from=1, s
         # simultaneous (default): everyone chooses from the board as it stood at the end of the previous round.
         # staggered: agents move one at a time in a rotating order, each seeing what earlier movers did this round.
         order = [(rnd - 1 + i) % k for i in range(k)] if stagger else list(range(k))
-        text_now = board_text(posts, k, protocol) if visible else None
+        text_now = board_text(posts, k, protocol, v) if visible else None
         best_loc = leader_location(posts) if (posts and visible) else None
         board_leader.append(best_loc)
         if stagger:
             for i in order:
                 if visible:                                  # refresh for each mover
-                    text_now = board_text(posts, k, protocol)
+                    text_now = board_text(posts, k, protocol, v)
                     best_loc = leader_location(posts) if posts else None
                 act = take(i, ask(i, text_now, visible), best_loc)
                 chosen[i] = act
                 res = envs[i].step(act)                      # play and post immediately, so the next mover sees it
                 if share:
-                    posts.append(post_line(i + 1, rnd, act, res.profit))
+                    posts.append({"agent": i + 1, "round": rnd, "action": act, "profit": res.profit})
         else:
             if k == 1:
                 replies = [ask(0, text_now, visible)]
@@ -165,7 +208,7 @@ def run_team(client, world, wid, rep, k, share, protocol, seed0, share_from=1, s
             for i in range(k):
                 res = envs[i].step(chosen[i])
                 if share:
-                    posts.append(post_line(i + 1, rnd, chosen[i], res.profit))
+                    posts.append({"agent": i + 1, "round": rnd, "action": chosen[i], "profit": res.profit})
     recs = []
     for i in range(k):
         ep = M.from_env(envs[i], parse_ok=oks[i])
@@ -183,9 +226,8 @@ def run_team(client, world, wid, rep, k, share, protocol, seed0, share_from=1, s
 
 
 def leader_location(posts):
-    """Where the best posted result so far was earned."""
-    best = max(posts, key=lambda p: float(p.rsplit("earned ", 1)[1]))
-    return best.split("location=", 1)[1].split(",", 1)[0]
+    """Where the best posted result so far was earned (the real location name, whatever the vocabulary shows)."""
+    return max(posts, key=lambda p: p["profit"])["action"]["location"]
 
 
 def arm_name(share, protocol, share_from, stagger=False, share_at=None):

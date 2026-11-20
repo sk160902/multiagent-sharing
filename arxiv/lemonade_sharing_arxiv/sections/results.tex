@@ -46,8 +46,8 @@ framing, against \SameLocSoloLem\% and \SameLocSoloAli\% for agents working alon
 Working alone earns the least in both framings, \LemSoloSum\% of the ceiling in the lemonade framing and
 \AliSoloSum\% in the alien framing, and every one of the eight sharing conditions earns more. Averaged over
 them, sharing adds \AllLemSum{} points in the lemonade framing and \AllAliSum{} in the alien framing. The
-best earners are agents moving one at a time in the lemonade framing (\LemStaggerSum\%) and the stay-different
-instruction in the alien framing (\AliProtocolSum\%). The reason is visible in the board traces: once agents can
+best earners are agents moving one at a time in the lemonade framing (\LemStaggerSum\%) and sharing all along
+in the alien framing (\AliShareSum\%). The reason is visible in the board traces: once agents can
 see each other, they copy whoever is doing best so far, and copying a good setup pays in the current round. Each
 agent's own best round is also higher under sharing, by \OwnBestLem{} points in the lemonade framing and
 \OwnBestAli{} in the alien framing, so sharing makes the typical agent better off even as it lowers the
@@ -64,12 +64,11 @@ finding. The max is a best-of-\NAttempts{} measure: a world's value moves by ten
 whether any one of the sixty attempts landed at the best location, which is why it is so much noisier than
 the other two measures. Table~\ref{tab:reached} counts the world-runs in which a team reached the best
 location at all. Working alone did so in \LemSoloReached{} in the lemonade framing and \AliSoloReached{} in the
-alien framing; sharing all along did so in \LemShareReached{} and \AliShareReached{} respectively, the same
-share in both framings.
+alien framing; sharing all along did so in \LemShareReached{} and \AliShareReached{}.
 
 \begin{table}[t]
   \centering
-  \caption{Sharing teams reach the best location in about half of their world-runs; three agents working alone in about three quarters. World-runs in which the team's best round was at the best location (max above 60\% of the optimum), out of the world-runs played.}
+  \caption{Sharing all along reaches the best location in fewer world-runs than three agents working alone, in both framings. World-runs in which the team's best round was at the best location (max above 60\% of the optimum), out of the world-runs played.}
   \label{tab:reached}
   \small
   \input{tables/tab_reached}
@@ -79,9 +78,10 @@ share in both framings.
 Figure~\ref{fig:timing} plots the max against the round in which the board opens. The two framings differ in
 shape. In the lemonade framing the worst time to open the board is the middle of the game: sharing after 2 or
 5 private rounds is the lowest, and opening it very late recovers most of the loss. In the alien framing the
-worst time is the start, and the curve climbs as the board opens later, coming within about 3 points of working
-alone at rounds 11 and 16. Neither curve reaches its working-alone line. We think the letter is the most
-likely reason for the different shapes: in the lemonade framing all three agents start near the letter's
+worst time is after 2 private rounds, and the curve then rises: a board opening at round 6 or at round 16 sits
+above the working-alone line, by \DAliFromSixMax{} and \DAliFromSixteenMax{} points, differences that eight
+worlds cannot separate from zero (Table~\ref{tab:percondition}). The lemonade curve never reaches its
+working-alone line. We think the letter is the most likely reason for the different shapes: in the lemonade framing all three agents start near the letter's
 location, so a board that opens in the middle shows them three versions of the same wrong answer at the moment
 they would otherwise start to leave it. In the alien framing there is no common starting point, and private
 rounds let the agents spread out before the board consolidates them. This has not been tested directly; the
@@ -90,7 +90,7 @@ controls that would test it are described in Section~\ref{sec:next}.
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.78\linewidth]{figures/fig_sharing_timing_runs.png}
-  \caption{Opening the board later helps, and no opening time reaches the working-alone level. Team max as a share of the world's optimum, by the round in which the shared board opens.}
+  \caption{Opening the board later helps; in the lemonade framing no opening time reaches the working-alone level, in the alien framing a board opening at round 6 or 16 sits at or above it. Team max as a share of the world's optimum, by the round in which the shared board opens.}
   \label{fig:timing}
   \figurenote{Blue is the lemonade framing and orange the alien framing. The dashed line in each colour is the working-alone level for that framing. GPT-5.6, eight worlds, two or three runs per world; bars show the standard deviation across runs.}
 \end{figure}
@@ -98,30 +98,31 @@ controls that would test it are described in Section~\ref{sec:next}.
 \paragraph{Per-condition contrasts.}
 Table~\ref{tab:percondition} gives each sharing condition's difference from working alone on every measure.
 On the max, no sharing condition is above working alone in the lemonade framing. In the alien framing two sit
-slightly above it: the periodic board, by \AliPeriodicDiff{} points, and the stay-different instruction, by
-\AliProtocolDiff{} points. Neither gap is distinguishable from zero. The first comes down to one extra
-world-run in which the team reached the best location, \AliPeriodicReached{} against \AliSoloReached{} for
-working alone; the condition was ahead of working alone in two of its three runs and behind in the third, and
-in the lemonade framing the same condition is below working alone. We read both as level with working alone,
-not better. What the two have in common is that they are the two sharing designs that keep exploration near the
-working-alone level.
+above it: a board opening at round 6, by \DAliFromSixMax{} points, and at round 16, by \DAliFromSixteenMax{}
+points. Neither gap is distinguishable from zero, and both conditions are below working alone in the lemonade
+framing (\DLemFromSixMax{} and \DLemFromSixteenMax{} points). The alien max is the noisiest cell in the paper:
+five of the eight alien sharing conditions changed side relative to working alone between the first run and
+the repeats (Appendix~\ref{app:agree}). We therefore read no sharing condition as reliably above working alone
+on the max. The conditions that come closest to it in both framings are those that keep exploration near the
+working-alone level: a board that opens late or in only three rounds, and the stay-different instruction.
 
 \paragraph{Replication on sixteen further worlds.}
 Because the test over eight worlds cannot separate a gap of a few points from zero, we ran the periodic board
 and working alone on sixteen further worlds that no condition had touched, three runs per world, in both
 framings, with the analysis fixed before each run. Table~\ref{tab:worlds24} gives the differences on the new
-worlds, on the pilot worlds and on all 24. On 24 worlds the periodic board is level with working alone on the
-max in both framings: \WLAllMax{} points in the lemonade framing, with \WLAllMaxUp{} worlds up and
-\WLAllMaxDown{} down, and \WAllMax{} points in the alien framing. Neither the deficit the lemonade framing
-showed on the pilot worlds nor the small advantage the alien framing showed reproduced on the new worlds
-(\WLNewMax{} and \WNewMax{} points), and in the alien framing both arms reached the best location in the same
-share of world-runs. The other two effects reproduced and are reliable on 24 worlds: the periodic board earns
-\WLAllSum{} points more than working alone in the lemonade framing and \WAllSum{} in the alien framing, and
-tries fewer distinct setups in \WLAllUniqDown{} and \WAllUniqDown{} of the \WAllUniqN{} worlds.
+worlds, on the pilot worlds and on all 24. On 24 worlds the periodic board is within a few points of working
+alone on the max in both framings and above it in neither: \WLAllMax{} points in the lemonade framing, with
+\WLAllMaxUp{} worlds up and \WLAllMaxDown{} down, and \WAllMax{} points in the alien framing, with
+\WAllMaxUp{} up and \WAllMaxDown{} down; neither difference is separable from zero. The pilot-world deficits
+did not grow on the new worlds (\WLNewMax{} and \WNewMax{} points there). In the alien framing the periodic
+board reached the best location in \WAllReachedArm\% of world-runs against \WAllReachedSolo\% working alone.
+The other two effects reproduced and are reliable on 24 worlds: the periodic board earns \WLAllSum{} points
+more than working alone in the lemonade framing and \WAllSum{} in the alien framing, and tries fewer distinct
+setups in \WLAllUniqDown{} and \WAllUniqDown{} of the \WAllUniqN{} worlds.
 
 \begin{table}[t]
   \centering
-  \caption{On 24 worlds the periodic board is level with working alone on the max in both framings, and keeps the earnings gain. Sharing at rounds 6, 11 and 16 relative to working alone, paired over worlds. Three runs per world. Max and cumulative earnings in percentage points of the optimum; distinct setups in counts; reached best location in percentage points of world-runs.}
+  \caption{On 24 worlds the periodic board is within a few points of working alone on the max in both framings, with intervals that include zero, and keeps the earnings gain. Sharing at rounds 6, 11 and 16 relative to working alone, paired over worlds. Three runs per world. Max and cumulative earnings in percentage points of the optimum; distinct setups in counts; reached best location in percentage points of world-runs.}
   \label{tab:worlds24}
   \scriptsize
   \setlength{\tabcolsep}{3.5pt}
@@ -131,7 +132,7 @@ tries fewer distinct setups in \WLAllUniqDown{} and \WAllUniqDown{} of the \WAll
 
 \begin{table}[t]
   \centering
-  \caption{No sharing condition beats working alone on the max; every one beats it on cumulative earnings and explores less. Each sharing condition's difference from working alone, paired within worlds, all runs. Max and cumulative earnings in percentage points; distinct setups in counts. $^{\ast}$ marks $p<0.05$ on the exact sign-flip test.}
+  \caption{No sharing condition is reliably above working alone on the max; every one earns more over the game, and most explore less. Each sharing condition's difference from working alone, paired within worlds, all runs. Max and cumulative earnings in percentage points; distinct setups in counts. $^{\ast}$ marks $p<0.05$ on the exact sign-flip test.}
   \label{tab:percondition}
   \small
   \setlength{\tabcolsep}{4pt}
@@ -142,21 +143,23 @@ tries fewer distinct setups in \WLAllUniqDown{} and \WAllUniqDown{} of the \WAll
 To check that the pattern is not specific to GPT-5.6, we ran working alone, sharing all along and the
 periodic board on Claude Opus 5.5, in both framings, on the eight pilot worlds, two runs per world, with the
 analysis fixed before the runs. Table~\ref{tab:claude} puts the differences beside GPT-5.6's on the same
-worlds. The drop in exploration reproduces in every cell: sharing all along removes \CLemUniqShare{} setups in
-the lemonade framing and \CAliUniqShare{} in the alien framing, and the periodic board fewer. Cumulative
-earnings are higher under sharing in all four cells, by \CAliSumShare{} points for sharing all along in the
-alien framing. On the max the two models differ in one place. For Claude, sharing all along lowers the max in
-the lemonade framing by \CLemMaxShare{} points, a larger drop than GPT-5.6's, with the team reaching the best
-location in \CLemReachedShareArm\% of world-runs against \CLemReachedShareSolo\% working alone; in the alien
-framing it is level with working alone, where GPT-5.6 showed a drop. The periodic board is level with working
-alone on the max in both framings for Claude, as it is for GPT-5.6 on 24 worlds. Claude working alone also
-reaches a higher max than GPT-5.6 in the lemonade framing (\CLemMaxShareSolo\% against \LemSoloMax\%), so the
-two models search differently; what they share is that visibility reduces search, raises earnings, and never
-raises the ceiling.
+worlds. The drop in exploration reproduces for sharing all along in both framings (\CLemUniqShare{} setups in
+the lemonade framing, \CAliUniqShare{} in the alien framing) and for the periodic board in the lemonade framing
+(\CLemUniqPeriodic{}); the alien periodic board is level (\CAliUniqPeriodic{}). Cumulative earnings are higher
+under sharing in all four cells, by \CLemSumShare{} to \CAliSumShare{} points, differences that two runs per
+world do not separate from zero. On the max the two models agree on the periodic board, within a few points of
+working alone in both framings (\CLemMaxPeriodic{} and \CAliMaxPeriodic{} points), and differ on sharing all
+along: for Claude it lowers the max in the lemonade framing by \CLemMaxShare{} points, a larger drop than
+GPT-5.6's, with the team reaching the best location in \CLemReachedShareArm\% of world-runs against
+\CLemReachedShareSolo\% working alone, and in the alien framing it is level with working alone
+(\CAliMaxShare{} points), where GPT-5.6 shows \GAliMaxShare{}. Claude working alone also reaches a higher max
+than GPT-5.6 in the lemonade framing (\CLemMaxShareSolo\% against \LemSoloMax\%), so the two models search
+differently; what they share is that visibility reduces search, raises earnings, and nowhere reliably raises
+the ceiling.
 
 \begin{table}[t]
   \centering
-  \caption{Claude Opus 5.5 reproduces the drop in exploration and the gain in earnings; the drop in the max appears in the lemonade framing only. Each sharing condition's difference from working alone, paired over the eight pilot worlds, for Claude Opus 5.5 (two runs per world) and GPT-5.6 (two or three runs per world) on the same worlds. Max and cumulative earnings in percentage points of the optimum; distinct setups in counts. $^{\ast}$ marks $p<0.05$ on the exact sign-flip test.}
+  \caption{Claude Opus 5.5 reproduces the drop in exploration under sharing all along and the direction of the earnings gain; the drop in the max appears in the lemonade framing only. Each sharing condition's difference from working alone, paired over the eight pilot worlds, for Claude Opus 5.5 (two runs per world) and GPT-5.6 (two or three runs per world) on the same worlds. Max and cumulative earnings in percentage points of the optimum; distinct setups in counts. $^{\ast}$ marks $p<0.05$ on the exact sign-flip test.}
   \label{tab:claude}
   \scriptsize
   \setlength{\tabcolsep}{3pt}
@@ -169,16 +172,16 @@ tested directly. We ran working alone and sharing all along for 60 rounds, in bo
 pilot worlds, three runs per world, with the analysis and a decision rule fixed before the runs. These are new
 games, not continuations: every prompt says ``Round $r$ of 60''. Table~\ref{tab:h60} gives the differences
 over the whole 60-round game, over rounds 21 to 60 alone, and, for comparison, in the 20-round game on the
-same worlds. The two framings move in opposite directions. With the letter, time favours sharing: the drop in
+same worlds. The two framings differ. With the letter, time favours sharing: the drop in
 the max closes from \HLemMaxGame{} points in the 20-round game to \HLemMaxFull{} over 60 rounds, as sharing
 teams eventually leave the recommended location and reach the best one in \HLemReachedFullArm\% of world-runs
 against \HLemReachedFullSolo\% working alone, while the cumulative lead of sharing grows to \HLemSumFull{}
 points, ahead in all \HLemSumFullUp{} worlds, and is still \HLemSumLate{} points in rounds 21 to 60. Without
-the letter, time favours the lone agents: the drop in the max stays at \HAliMaxFull{} points, with
-\HAliReachedFullArm\% of sharing world-runs reaching the best location against \HAliReachedFullSolo\% working
-alone, and the cumulative lead of sharing shrinks from \HAliSumGame{} points in the 20-round game to
-\HAliSumFull{} over 60 rounds and turns to \HAliSumLate{} in rounds 21 to 60, with \HAliSumLateDown{} of 8
-worlds favouring working alone. The collapse of exploration does not depend on the horizon: sharing removes
+the letter, time narrows the trade without reversing it: the drop in the max persists at \HAliMaxFull{}
+points, with \HAliReachedFullArm\% of sharing world-runs reaching the best location against
+\HAliReachedFullSolo\% working alone, and the cumulative lead of sharing shrinks from \HAliSumGame{} points in
+the 20-round game to \HAliSumFull{} over 60 rounds and to \HAliSumLate{} in rounds 21 to 60, ahead in
+\HAliSumLateUp{} of 8 worlds. The collapse of exploration does not depend on the horizon: sharing removes
 \HLemUniqFull{} and \HAliUniqFull{} setups over 60 rounds, and in rounds 21 to 60 a sharing team tries
 \HLemUniqLateArm{} and \HAliUniqLateArm{} distinct setups against \HLemUniqLateSolo{} and \HAliUniqLateSolo{}
 for three agents working alone. Being told the game is longer also changes early play: in the first 20 rounds
@@ -188,7 +191,7 @@ of the 60-round game, lemonade sharing teams reach a max of \ELemShareMaxHsixty\
 
 \begin{table}[t]
   \centering
-  \caption{With more rounds the two framings diverge: with the letter, sharing's cost on the max disappears and its earnings lead grows; without it, the cost persists and the lead disappears. Sharing all along relative to working alone, paired over the eight pilot worlds, GPT-5.6, three runs per world, in 60-round games and, for comparison, in the 20-round game on the same worlds. Max and cumulative earnings in percentage points of the optimum; distinct setups in counts; reached best location in percentage points of world-runs. $^{\ast}$ marks $p<0.05$ on the exact sign-flip test.}
+  \caption{With more rounds the two framings diverge: with the letter, sharing's cost on the max disappears and its earnings lead grows; without it, the cost persists and the lead narrows. Sharing all along relative to working alone, paired over the eight pilot worlds, GPT-5.6, three runs per world, in 60-round games and, for comparison, in the 20-round game on the same worlds. Max and cumulative earnings in percentage points of the optimum; distinct setups in counts; reached best location in percentage points of world-runs. $^{\ast}$ marks $p<0.05$ on the exact sign-flip test.}
   \label{tab:h60}
   \scriptsize
   \setlength{\tabcolsep}{4pt}
@@ -199,8 +202,9 @@ of the 60-round game, lemonade sharing teams reach a max of \ELemShareMaxHsixty\
 Figure~\ref{fig:intervals} and Table~\ref{tab:contrasts} compare the first run with the repeats. The three
 headline contrasts have the same sign in the first run, in the repeats and in all runs, in both framings. Per
 condition, the repeats fall on the same side of working alone as the first run in \AgreeSame{} of \AgreeOf{}
-condition-measure-framing cells, and the four exceptions are cells within 7 points or 3 setups of zero both
-times (Appendix~\ref{app:agree}). The repeats did not change any conclusion of the first run. They narrowed the
+condition-measure-framing cells (Appendix~\ref{app:agree}). Five of the six exceptions are on the max, the
+noisiest measure, and the sixth is a distinct-setups cell within 3 setups of zero both times. The repeats did
+not change any conclusion of the first run. They narrowed the
 intervals on cumulative earnings and distinct setups enough to make both reliable in each framing on its
 own, and they left the max where it was: a consistent drop that eight worlds cannot separate from zero.
 

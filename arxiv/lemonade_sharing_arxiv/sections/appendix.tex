@@ -86,7 +86,8 @@ and in the alien framing a line reads
 
 \paragraph{Shared board.}
 In rounds when the board is visible, it is added to the end of the user message. Its header and its post lines
-are the same in both framings:
+are rendered in the framing's own vocabulary. In the lemonade framing, the board after round 1 of a recorded
+sharing team in the same world reads:
 \begin{small}
 \begin{verbatim}
 Shared notes board. You and 2 other stand owners run your own stands in the
@@ -100,14 +101,23 @@ owner 3, round 1: location=stadium, sugar=2.0, lemon=5.5, colour=green,
 price=3.5 -> earned 80.4
 \end{verbatim}
 \end{small}
-This is the board after round 1 of a recorded sharing team in the same world: two agents played the letter's
-setup, one moved it to another location and fell into the valley. Posts accumulate in order, most recent
-last, for all three agents. As noted in Section~\ref{sec:limitations},
-the board uses the lemonade vocabulary in the alien framing as well.
+Two agents played the letter's setup; one moved it to another location and fell into the valley. In the alien
+framing, the board after round 1 of a recorded sharing team in the same world reads:
+\begin{small}
+\begin{verbatim}
+Shared notes board. You and 2 other operators each run a business of the same
+kind and post what you tried and what it earned. Everything below is a
+measured result, not an opinion.
+operator 1, round 1: A=A1, B=5.0, C=5.0, D=D1, E=5.0 -> payoff 50.2
+operator 2, round 1: A=A2, B=5.0, C=5.0, D=D1, E=5.0 -> payoff 55.5
+operator 3, round 1: A=A1, B=5.0, C=5.0, D=D1, E=5.0 -> payoff 50.2
+\end{verbatim}
+\end{small}
+Posts accumulate in order, most recent last, for all three agents.
 
 \paragraph{Stay-different instruction.}
 In the ``sharing, told to stay different'' condition the following text is appended under the board in every
-round in which it is visible:
+round in which it is visible (in the alien framing ``owner'' reads ``operator''):
 \begin{small}
 \begin{verbatim}
 How to use the board: pick an approach that is different from the ones already

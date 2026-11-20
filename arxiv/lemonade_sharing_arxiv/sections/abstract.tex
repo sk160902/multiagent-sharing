@@ -16,11 +16,12 @@ We show three results that hold in both framings. Sharing cuts the number of dis
 best single-round profit any teammate reaches, by \AllBothMax{} points on average and in every run, but with
 \NWorlds{} worlds this last difference is not statistically reliable ($p=\AllBothMaxP$). The later the
 board opens, the more the team explores. Agents that can see each other copy whoever is doing best, which
-pays in the current round and tends to lock the team onto a good but not best location. The two conditions
-that sit level with working alone on the best round are those that keep exploration near the working-alone
-level: a board visible in only three rounds, and an instruction to stay different from one's teammates. A
-follow-up on sixteen further worlds confirms, in both framings, that the three-round board is level with working
-alone on the best round, and a replication of three conditions on Claude Opus 5.5 reproduces the drop in exploration and the
-gain in cumulative earnings. A 60-round version of working alone and sharing all along shows that the trade
-depends on the horizon and on the letter: with the letter, the drop in the max closes and the cumulative lead
-of sharing grows; without it, the drop in the max persists and the cumulative lead disappears.
+pays in the current round and tends to lock the team onto a good but not best location. The conditions that
+come closest to working alone on the best round are those that keep exploration near the working-alone level:
+a board that opens late or in only three rounds, and an instruction to stay different from one's teammates;
+none is reliably above it. A follow-up on sixteen further worlds puts the three-round board within a few points
+of working alone on the best round in both framings, and a replication of three conditions on Claude Opus 5.5
+reproduces the drop in exploration and the gain in cumulative earnings. A 60-round version of working alone
+and sharing all along shows that the trade depends on the horizon and on the letter: with the letter, the drop
+in the max closes and the cumulative lead of sharing grows; without it, the drop in the max persists and the
+cumulative lead narrows.

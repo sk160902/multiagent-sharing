@@ -37,32 +37,32 @@ Decision rule: C1_sum_reversed no, C2_late_sum_negative no, C3_ceiling_gap_close
 
 | window | measure | share minus solo |
 |---|---|---|
-| rounds 1-60 | best_peak | n=8 | 91.4 -> 72.4 | diff -19.0 [-41.0, +2.9] p=0.125 (1 up, 5 down) |
-| rounds 1-60 | sum_pct | n=8 | 65.2 -> 67.4 | diff +2.2 [-15.7, +20.1] p=0.766 (6 up, 2 down) |
-| rounds 1-60 | unique | n=8 | 63.5 -> 30.0 | diff -33.5 [-41.4, -25.7] p=0.008 (0 up, 8 down) |
-| rounds 1-60 | reached_best | n=8 | 83.3 -> 50.0 | diff -33.3 [-72.8, +6.1] p=0.156 (1 up, 5 down) |
-| rounds 21-60 | best_peak | n=8 | 91.4 -> 72.4 | diff -19.0 [-41.0, +2.9] p=0.125 (1 up, 5 down) |
-| rounds 21-60 | sum_pct | n=8 | 75.3 -> 72.3 | diff -3.0 [-23.5, +17.5] p=0.727 (3 up, 5 down) |
-| rounds 21-60 | unique | n=8 | 13.0 -> 1.3 | diff -11.7 [-17.5, -5.9] p=0.008 (0 up, 8 down) |
-| rounds 21-60 | reached_best | n=8 | 83.3 -> 50.0 | diff -33.3 [-72.8, +6.1] p=0.156 (1 up, 5 down) |
-| rounds 1-20 of 60 | best_peak | n=8 | 87.5 -> 72.3 | diff -15.1 [-36.7, +6.5] p=0.203 (4 up, 4 down) |
-| rounds 1-20 of 60 | sum_pct | n=8 | 44.9 -> 57.5 | diff +12.6 [-1.9, +27.1] p=0.086 (6 up, 2 down) |
-| rounds 1-20 of 60 | unique | n=8 | 52.1 -> 29.6 | diff -22.5 [-27.3, -17.7] p=0.008 (0 up, 8 down) |
-| rounds 1-20 of 60 | reached_best | n=8 | 79.2 -> 50.0 | diff -29.2 [-69.8, +11.5] p=0.250 (1 up, 4 down) |
-| 20-round game | best_peak | n=8 | 86.8 -> 71.2 | diff -15.6 [-35.9, +4.7] p=0.156 (3 up, 4 down) |
-| 20-round game | sum_pct | n=8 | 48.4 -> 58.8 | diff +10.4 [-1.9, +22.7] p=0.102 (5 up, 3 down) |
-| 20-round game | unique | n=8 | 48.0 -> 25.1 | diff -23.0 [-25.9, -20.0] p=0.008 (0 up, 8 down) |
-| 20-round game | reached_best | n=8 | 79.2 -> 50.0 | diff -29.2 [-63.9, +5.6] p=0.250 (0 up, 3 down) |
+| rounds 1-60 | best_peak | n=8 | 91.4 -> 81.2 | diff -10.3 [-27.5, +7.0] p=0.188 (1 up, 4 down) |
+| rounds 1-60 | sum_pct | n=8 | 65.2 -> 75.5 | diff +10.3 [-5.0, +25.6] p=0.164 (5 up, 3 down) |
+| rounds 1-60 | unique | n=8 | 63.5 -> 28.9 | diff -34.7 [-40.6, -28.7] p=0.008 (0 up, 8 down) |
+| rounds 1-60 | reached_best | n=8 | 83.3 -> 66.7 | diff -16.7 [-50.0, +16.6] p=0.500 (1 up, 3 down) |
+| rounds 21-60 | best_peak | n=8 | 91.4 -> 81.2 | diff -10.3 [-27.5, +7.0] p=0.188 (1 up, 4 down) |
+| rounds 21-60 | sum_pct | n=8 | 75.3 -> 81.1 | diff +5.8 [-10.3, +21.9] p=0.398 (5 up, 3 down) |
+| rounds 21-60 | unique | n=8 | 13.0 -> 1.6 | diff -11.5 [-17.1, -5.8] p=0.008 (0 up, 8 down) |
+| rounds 21-60 | reached_best | n=8 | 83.3 -> 66.7 | diff -16.7 [-50.0, +16.6] p=0.500 (1 up, 3 down) |
+| rounds 1-20 of 60 | best_peak | n=8 | 87.5 -> 79.3 | diff -8.2 [-24.8, +8.4] p=0.328 (4 up, 3 down) |
+| rounds 1-20 of 60 | sum_pct | n=8 | 44.9 -> 64.2 | diff +19.3 [+4.8, +33.8] p=0.031 (6 up, 2 down) |
+| rounds 1-20 of 60 | unique | n=8 | 52.1 -> 28.2 | diff -23.9 [-27.0, -20.8] p=0.008 (0 up, 8 down) |
+| rounds 1-20 of 60 | reached_best | n=8 | 79.2 -> 62.5 | diff -16.7 [-50.0, +16.6] p=0.500 (1 up, 3 down) |
+| 20-round game | best_peak | n=8 | 86.8 -> 79.2 | diff -7.6 [-30.9, +15.7] p=0.750 (5 up, 2 down) |
+| 20-round game | sum_pct | n=8 | 48.4 -> 65.6 | diff +17.2 [+3.5, +30.9] p=0.031 (7 up, 1 down) |
+| 20-round game | unique | n=8 | 48.0 -> 26.2 | diff -21.8 [-24.7, -18.9] p=0.008 (0 up, 8 down) |
+| 20-round game | reached_best | n=8 | 79.2 -> 66.7 | diff -12.5 [-45.6, +20.6] p=0.750 (1 up, 2 down) |
 
 | stated horizon, same window (rounds 1-20) | measure | 60-round game minus 20-round game |
 |---|---|---|
 | solo | best_peak | n=8 | 86.8 -> 87.5 | diff +0.7 [-2.4, +3.7] p=0.688 (3 up, 4 down) |
 | solo | sum_pct | n=8 | 48.4 -> 44.9 | diff -3.5 [-6.5, -0.6] p=0.023 (1 up, 7 down) |
 | solo | unique | n=8 | 48.0 -> 52.1 | diff +4.1 [+2.7, +5.4] p=0.008 (8 up, 0 down) |
-| share | best_peak | n=8 | 71.2 -> 72.3 | diff +1.2 [-16.8, +19.1] p=0.875 (3 up, 3 down) |
-| share | sum_pct | n=8 | 58.8 -> 57.5 | diff -1.4 [-11.5, +8.8] p=0.789 (3 up, 5 down) |
-| share | unique | n=8 | 25.1 -> 29.6 | diff +4.5 [+0.0, +9.1] p=0.070 (6 up, 2 down) |
+| share | best_peak | n=8 | 79.2 -> 79.3 | diff +0.1 [-13.1, +13.2] p=0.969 (3 up, 3 down) |
+| share | sum_pct | n=8 | 65.6 -> 64.2 | diff -1.4 [-12.5, +9.7] p=0.773 (4 up, 4 down) |
+| share | unique | n=8 | 26.2 -> 28.2 | diff +2.0 [-0.6, +4.6] p=0.133 (5 up, 3 down) |
 
-Decision rule: C1_sum_reversed no, C2_late_sum_negative YES, C3_ceiling_gap_closed no, C4_unique_positive no, complete YES
+Decision rule: C1_sum_reversed no, C2_late_sum_negative no, C3_ceiling_gap_closed no, C4_unique_positive no, complete YES
 
 **Horizon changes the story (C1-C3, either framing): YES**

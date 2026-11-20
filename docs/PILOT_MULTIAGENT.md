@@ -387,3 +387,68 @@ board $23.26) of the $75 approved; project total $1,025.72 of the $1,255 cap. An
 `results/multiagent/stats_worlds24_lemonade.{json,md}`. Primary result, `best_peak` on all 24 worlds: periodic board
 minus working alone -1.3 [-8.1, +5.4], p=0.68, 11 worlds up and 11 down; level, as in the alien framing (+0.6 [-4.6,
 +5.7]). Numbers and reading in `docs/RESULTS.md`, entry 2026-11-20 (lemonade 24 worlds).
+
+## Addendum, 2026-11-20: the shared board rendered in the agent's own vocabulary; every alien sharing arm rerun (written before any of these ran)
+
+**The defect.** The shared board was rendered by `post_line` and `BOARD_INTRO` in `experiments/shared_world.py` with
+the lemonade words and the raw action values in every framing: a post read `owner 1, round 1: location=stadium,
+sugar=2.0, lemon=5.5, colour=green, price=3.5 -> earned 80.4` under a header describing the agents as stand owners in
+the same town. The alien framing (added 2026-10-21) changed the system prompt, the history lines and the parser to the
+A-E vocabulary but not the board. So in every alien sharing condition the agents saw the lemonade variable names, the
+real location names and the real colour names on the board, while the alien working-alone condition, which has no
+board, saw none of them. The confound was noticed on 2026-10-21 (RESULTS.md entry of that day, "a confound in the
+labels"), recorded as a limitation, and not fixed. The paper's limitations paragraph then said the within-framing
+contrasts were unaffected because the detail applied to every alien condition; that is false for the contrasts
+against working alone. The user asked on 2026-11-20 for the fix and the rerun.
+
+**The fix** (`experiments/shared_world.py`; the copy before the change is
+`results/multiagent/backup_before_reps_2026-11-04/shared_world.py.before_board`, identical to the public release's
+first commit). Posts are kept as structured records and rendered at display time through the same `Vocabulary` the
+agent's prompt uses (`agents/vocab.for_world`). In the lemonade framing the rendering is the pilot's wording, byte for
+byte. In the alien framing a post reads `operator 1, round 1: A=A1, B=2.0, C=5.5, D=D1, E=3.5 -> payoff 80.4`, the
+header reads "You and 2 other operators each run a business of the same kind and post what you tried and what it
+earned", and the stay-different instruction says "another operator's approach". The board leader used for the
+herding metric is taken from the structured record, so `copied_leader_rounds` and `board_leader_locations` are
+computed exactly as before. A guard now runs on every call in the alien framing and raises if any message contains a
+lemonade word, a location name or a colour name (`assert_no_lemonade`); the alien system prompt's own phrase "a
+business with five decision variables" is allowed, a location of that name as a value is not. Checked offline with a
+stub client: lemonade sharing, staggered and protocol teams give records and prompts identical to the pre-fix code;
+alien sharing, staggered and protocol teams send no prompt containing any forbidden word.
+
+**What is rerun.** Every alien arm with a board, with the same worlds, repeats, models and horizons as the runs it
+replaces, so that every analysis script and every table regenerates from the same file names:
+
+| arm | model | worlds | runs | team-episodes |
+|---|---|---|---|---|
+| share_alien | gpt-5.6-sol | 8 | 3 | 24 |
+| share_from3_alien, share_from6_alien, share_from11_alien, share_from16_alien | gpt-5.6-sol | 8 | 2 | 16 each |
+| share_at6-11-16_alien | gpt-5.6-sol | 24 (pilot 8 and val[16:32]) | 3 | 72 |
+| share_protocol_alien, share_staggered_alien | gpt-5.6-sol | 8 | 2 | 16 each |
+| share_alien_h60 | gpt-5.6-sol, 60 rounds | 8 | 3 | 24 |
+| share_alien, share_at6-11-16_alien | claude-opus-5-5 | 8 | 2 | 16 each |
+
+Working alone in the alien framing has no board and is not rerun. Nothing in the lemonade framing is rerun. The
+pre-fix alien sharing files and their spend files are moved, not deleted, to
+`results/multiagent/alien_board_leak_2026-11-20/` with a README; they are not analysed. Launcher:
+`scripts/run_multiagent_alien_board.sh` (detached, one copy, resumable, caps enforced per episode), which ends by
+regenerating every analysis that reads an alien sharing arm.
+
+**Budget.** At the measured rates ($0.76 per 20-round team-episode on GPT-5.6, about $1.00 on Claude, $4.20 per
+60-round team-episode): 192 GPT team-episodes at 20 rounds ($146), 32 Claude team-episodes ($32), 24 GPT team-episodes
+at 60 rounds ($101), about $280 in all. Caps, in `results/multiagent/logs/alienfix_cap__<arm>__<model>.txt`:
+share_alien 25; each of from3, from6, from11, from16, protocol, staggered 18; share_at6-11-16_alien 70;
+share_alien_h60 125; Claude share_alien 22 and share_at6-11-16_alien 22; $372 in all. Allowance $375 (project cap
+$1,255 -> $1,630). If a cap stops an arm early, the worlds it completed are analysed and that is reported.
+
+**Analysis.** Unchanged: the scripts, contrasts, tests and file names fixed in the earlier addenda
+(`stats_multiagent_reps.py`, `writeup_numbers_multiagent.py`, `run_means_multiagent.py`, `stats_worlds24.py`,
+`stats_claude.py`, `stats_h60.py`, `arxiv_sharing_tables.py`) run on the new files. No direction is pre-specified for
+how the alien numbers move; whatever they are, they replace the pre-fix alien numbers in the paper, and the limitation
+about the board's wording is removed from the paper as no longer true.
+
+**Process note, 2026-11-20 08:43 UTC: complete.** Launched 08:05 UTC, all eleven arms complete by 08:43 UTC, no cap
+stop, every analysis regenerated by the launcher. Spend $242.44 of the $375 allowance (GPT 20-round arms $121.66,
+GPT 60-round arm $99.67, Claude $21.11); project total $1,268.16 of the $1,630 cap. Replay check over every recorded
+alien sharing episode (216 team-episodes at the time, all 232 after the last arm finished): the rebuilt system prompts,
+histories and complete boards contain no lemonade word, location name or colour name. Numbers and the reading in
+`docs/RESULTS.md`, entry 2026-11-20 (alien board rerun, results).

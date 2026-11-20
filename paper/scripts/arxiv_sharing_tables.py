@@ -183,8 +183,32 @@ for fr, tag in (("lemonade", "Lem"), ("alien", "Ali"), ("both", "Both")):
 t = S["all_runs"]["alien|best_peak|share_at6-11-16"]
 macros.update({"AliPeriodicDiff": f"{t['mean']:+.1f}", "AliPeriodicLo": f"{t['lo']:+.1f}",
                "AliPeriodicHi": f"{t['hi']:+.1f}", "AliPeriodicP": f"{t['p']:.2f}"})
+# every condition's all-runs difference from working alone, per framing and measure, so the prose can name any
+# condition by its generated number (added 2026-11-20): e.g. \AliFromSixMaxDiff, \LemStaggerSumDiff
+TAG = {"share": "Share", "share_from3": "FromThree", "share_from6": "FromSix", "share_from11": "FromEleven",
+       "share_from16": "FromSixteen", "share_at6-11-16": "Periodic", "share_protocol": "Protocol",
+       "share_staggered": "Stagger"}
+for fr, ft in (("lemonade", "Lem"), ("alien", "Ali")):
+    for a, at in TAG.items():
+        for m, mt in (("best_peak", "Max"), ("sum_pct", "Sum"), ("unique", "Uniq")):
+            t = S["all_runs"][f"{fr}|{m}|{a}"]
+            macros[f"{ft}{at}{mt}Diff"] = f"{t['mean']:+.1f}"
+            macros[f"{ft}{at}{mt}Up"] = str(t["up"])
+            macros[f"{ft}{at}{mt}Down"] = str(t["down"])
+        macros[f"{ft}{at}Sum"] = f1(R[f"{fr}|sum_pct|{a}"]["mean"])
+        macros[f"{ft}{at}Max"] = f1(R[f"{fr}|best_peak|{a}"]["mean"])
 t = S["all_runs"]["alien|best_peak|share_protocol"]
 macros.update({"AliProtocolDiff": f"{t['mean']:+.1f}", "AliProtocolP": f"{t['p']:.2f}"})
+# every per-condition difference from working alone, all runs, as a macro: \D<Lem|Ali><condition><Max|Sum|Uniq>
+ARMTAG = {"share": "Share", "share_from3": "FromThree", "share_from6": "FromSix", "share_from11": "FromEleven",
+          "share_from16": "FromSixteen", "share_at6-11-16": "Periodic", "share_protocol": "Protocol",
+          "share_staggered": "Stagger"}
+for fr, tag in (("lemonade", "Lem"), ("alien", "Ali")):
+    for a, at in ARMTAG.items():
+        for m, mt in (("best_peak", "Max"), ("sum_pct", "Sum"), ("unique", "Uniq")):
+            t = S["all_runs"][f"{fr}|{m}|{a}"]
+            macros[f"D{tag}{at}{mt}"] = f"{t['mean']:+.1f}"
+            macros[f"D{tag}{at}{mt}P"] = f"{t['p']:.3f}"
 n, d = W["reached"]["alien|share_at6-11-16"]; macros["AliPeriodicReached"] = f"{n} of {d}"
 n, d = W["reached"]["alien|solo"]; macros["AliSoloReached"] = f"{n} of {d}"
 n, d = W["reached"]["lemonade|solo"]; macros["LemSoloReached"] = f"{n} of {d}"
