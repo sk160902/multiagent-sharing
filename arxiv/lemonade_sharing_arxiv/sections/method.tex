@@ -5,9 +5,9 @@
 One agent runs a stand for \NRounds{} rounds. Each round it chooses one of three locations, a sugar level, a
 lemon level, one of two colours, and a price. Sugar, lemon and price run from 0.0 to 10.0 in steps of 0.1. The
 agent then receives that round's profit and one line of customer feedback. Profit is deterministic. Each
-location in a world has a hidden ideal setup and a hidden ceiling, and the profit for a setup is the
-ceiling minus a linear penalty for every unit of distance from the ideal on each of sugar, lemon and price,
-minus a flat penalty if the colour is wrong, floored at zero. The same setup in the same world always pays
+location in a world has a hidden ideal setup and a hidden ceiling. A setup that matches the ideal earns the
+ceiling; profit falls from there by a fixed amount for every unit of distance from the ideal on each of sugar,
+lemon and price, and by a flat amount if the colour is wrong, and never goes below zero. The same setup in the same world always pays
 the same profit. The feedback line picks one of sugar, lemon or price at random and says whether it is above,
 below or at the ideal for the location the agent sold at. It is a local signal about one dial at one
 location. It says nothing about other locations and never mentions colour. The agent never sees the profit
