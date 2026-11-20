@@ -3,7 +3,7 @@
 \paragraph{Overview.}
 Table~\ref{tab:main} gives every condition's mean on the three measures in both framings, averaged over runs,
 with the standard deviation across runs. Table~\ref{tab:contrasts} gives the headline contrast, the mean of the
-eight sharing conditions minus working alone, with its interval and test, separately for the first run, the
+eight sharing conditions relative to working alone, with its interval and test, separately for the first run, the
 repeat runs and all runs. Three patterns appear in both framings: sharing cuts the number of distinct setups,
 raises cumulative earnings and lowers the max. The first two are statistically reliable with eight worlds.
 The third is consistent in sign and size across runs but is not. We report them in that order because the
@@ -21,7 +21,7 @@ first is the mechanism we think produces the other two.
 
 \begin{table}[t]
   \centering
-  \caption{Mean of the eight sharing conditions minus working alone, paired within worlds. 95\% $t$ intervals over the eight world-level differences and exact sign-flip $p$-values. Max and cumulative earnings in percentage points of the optimum; distinct setups in counts.}
+  \caption{Mean of the eight sharing conditions relative to working alone, paired within worlds. 95\% $t$ intervals over the eight world-level differences and exact sign-flip $p$-values. Max and cumulative earnings in percentage points of the optimum; distinct setups in counts.}
   \label{tab:contrasts}
   \scriptsize
   \setlength{\tabcolsep}{3.5pt}
@@ -97,7 +97,7 @@ controls that would test it are described in Section~\ref{sec:next}.
 \end{figure}
 
 \paragraph{Per-condition contrasts.}
-Table~\ref{tab:percondition} gives each sharing condition minus working alone on every measure. On the max, no
+Table~\ref{tab:percondition} gives each sharing condition's difference from working alone on every measure. On the max, no
 sharing condition is above working alone in the lemonade framing. In the alien framing two are slightly above
 it: sharing at rounds 6, 11 and 16 only, at \AliPeriodicMax\% against \AliSoloMax\% (difference
 \AliPeriodicDiff{} points [\AliPeriodicLo, \AliPeriodicHi], $p=\AliPeriodicP$), and the stay-different
@@ -128,7 +128,7 @@ the count lower in \WLAllUniqDown{} and \WAllUniqDown{} of the \WAllUniqN{} worl
 
 \begin{table}[t]
   \centering
-  \caption{Sharing at rounds 6, 11 and 16 minus working alone, paired over worlds, both framings. Three runs per world. Max and cumulative earnings in percentage points of the optimum; distinct setups in counts; reached best location in percentage points of world-runs.}
+  \caption{Sharing at rounds 6, 11 and 16 relative to working alone, paired over worlds, both framings. Three runs per world. Max and cumulative earnings in percentage points of the optimum; distinct setups in counts; reached best location in percentage points of world-runs.}
   \label{tab:worlds24}
   \scriptsize
   \setlength{\tabcolsep}{3.5pt}
@@ -138,7 +138,7 @@ the count lower in \WLAllUniqDown{} and \WAllUniqDown{} of the \WAllUniqN{} worl
 
 \begin{table}[t]
   \centering
-  \caption{Each sharing condition minus working alone, paired within worlds, all runs. Max and cumulative earnings in percentage points; distinct setups in counts. $^{\ast}$ marks $p<0.05$ on the exact sign-flip test.}
+  \caption{Each sharing condition's difference from working alone, paired within worlds, all runs. Max and cumulative earnings in percentage points; distinct setups in counts. $^{\ast}$ marks $p<0.05$ on the exact sign-flip test.}
   \label{tab:percondition}
   \small
   \setlength{\tabcolsep}{4pt}
@@ -166,7 +166,7 @@ search, raises earnings, and never raises the ceiling.
 
 \begin{table}[t]
   \centering
-  \caption{Second model. Each sharing condition minus working alone, paired over the eight pilot worlds, for Claude Opus 5.5 (two runs per world) and GPT-5.6 (two or three runs per world) on the same worlds. Max and cumulative earnings in percentage points of the optimum; distinct setups in counts. $^{\ast}$ marks $p<0.05$ on the exact sign-flip test.}
+  \caption{Second model. Each sharing condition's difference from working alone, paired over the eight pilot worlds, for Claude Opus 5.5 (two runs per world) and GPT-5.6 (two or three runs per world) on the same worlds. Max and cumulative earnings in percentage points of the optimum; distinct setups in counts. $^{\ast}$ marks $p<0.05$ on the exact sign-flip test.}
   \label{tab:claude}
   \scriptsize
   \setlength{\tabcolsep}{3pt}
@@ -202,7 +202,7 @@ first 20 rounds of a 60-round game are not a 20-round game, which is why no 20-r
 
 \begin{table}[t]
   \centering
-  \caption{A longer game. Sharing all along minus working alone, paired over the eight pilot worlds, GPT-5.6, three runs per world, in 60-round games and, for comparison, in the 20-round game on the same worlds. Max and cumulative earnings in percentage points of the optimum; distinct setups in counts; reached best location in percentage points of world-runs. $^{\ast}$ marks $p<0.05$ on the exact sign-flip test.}
+  \caption{A longer horizon. Sharing all along relative to working alone, paired over the eight pilot worlds, GPT-5.6, three runs per world, in 60-round games and, for comparison, in the 20-round game on the same worlds. Max and cumulative earnings in percentage points of the optimum; distinct setups in counts; reached best location in percentage points of world-runs. $^{\ast}$ marks $p<0.05$ on the exact sign-flip test.}
   \label{tab:h60}
   \scriptsize
   \setlength{\tabcolsep}{4pt}
@@ -221,7 +221,7 @@ own, and they left the max where it was: a consistent drop that eight worlds can
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.95\linewidth]{figures/fig_sharing_intervals.png}
-  \caption{Each sharing condition, and the mean of all sharing conditions, minus working alone, with 95\% intervals, all runs.}
+  \caption{Each sharing condition, and the mean of all sharing conditions, relative to working alone, with 95\% intervals, all runs.}
   \label{fig:intervals}
   \figurenote{Paired over the eight worlds; blue is the lemonade framing and orange the alien framing. For the pooled contrast in the bottom row, the intervals for cumulative earnings and distinct setups exclude zero in both framings and the interval for the max includes zero in both.}
 \end{figure}

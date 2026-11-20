@@ -101,7 +101,7 @@ write("tab_percondition.tex", "\n".join([
     r"\begin{tabular}{l ccc ccc}", r"\toprule",
     r" & \multicolumn{3}{c}{Lemonade framing} & \multicolumn{3}{c}{Alien framing} \\",
     r"\cmidrule(lr){2-4} \cmidrule(lr){5-7}",
-    r"Condition minus working alone & Max & Cumulative & Distinct & Max & Cumulative & Distinct \\",
+    r"Difference from working alone & Max & Cumulative & Distinct & Max & Cumulative & Distinct \\",
     r"\midrule", *rows, r"\bottomrule", r"\end{tabular}"]))
 
 # ---------------------------------------------------------------- reached the best location
