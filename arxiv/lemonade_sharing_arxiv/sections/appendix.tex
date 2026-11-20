@@ -13,10 +13,12 @@ the analysis scripts that regenerate them and the source of this paper are at
 
 \subsection{Prompts}\label{app:prompts}
 
-The system prompt below is the one used in every condition; it names neither the best round nor the total.
-The world shown is the first of the eight. In the lemonade framing the previous manager's letter is included;
-in the alien framing it is not. The user turn carries the agent's own history and, when the board is visible,
-the board.
+Each round, the model receives two messages. The first is the system prompt: the fixed instructions, shown
+below, which are the same in every round and every condition and which name neither the best round nor the
+total. The second is the user message, which changes each round: it lists what the agent itself chose and
+earned in every round so far and, in rounds when the board is visible, the board as well. The world shown
+below is the first of the eight. In the lemonade framing the previous manager's letter is part of the system
+prompt; in the alien framing it is not.
 
 \paragraph{Lemonade framing, system prompt.}
 \begin{small}
@@ -65,8 +67,8 @@ Reply with ONLY a JSON object, no other text:
 \end{small}
 
 \paragraph{User message.}
-The first user turn reads ``Round 1 of 20. No rounds played yet. What is your choice?''. From round two
-onward it lists the agent's own history, one line per round, then the round number. In the lemonade framing a
+In round one the user message reads ``Round 1 of 20. No rounds played yet. What is your choice?''. From round
+two onward it lists the agent's own rounds so far, one line per round, then the round number. In the lemonade framing a
 line reads
 \begin{small}
 \begin{verbatim}
@@ -84,8 +86,8 @@ and in the alien framing the same round reads
 \end{small}
 
 \paragraph{Shared board.}
-When the board is visible it is appended to the user turn. Its header and its post lines are the same in both
-framings:
+In rounds when the board is visible, it is added to the end of the user message. Its header and its post lines
+are the same in both framings:
 \begin{small}
 \begin{verbatim}
 Shared notes board. You and 2 other stand owners run your own stands in the
