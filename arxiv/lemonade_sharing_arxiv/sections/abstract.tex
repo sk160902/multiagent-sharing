@@ -3,10 +3,10 @@
 % in bold, softer opening sentence. The numbers behind every bold claim are in Tables 1 and 2.
 Groups often find things faster than individuals, but a group that learns from its members too readily can
 settle on a worse answer than they would have found alone. Multi-agent systems built from large language
-models (LLMs) usually let every agent see what its peers have tried and how it scored, so that nothing is
-discovered twice. We ask whether that sharing helps or hurts on a task where the score each round is accurate
-but misleading about where the best answer lies, because every step toward it scores worse than where the
-agent starts. We use a reimplementation of the lemonade-stand game of \citet{ederer2013pay}: teams of three
+models (LLMs) usually let every agent see what its peers have tried and how it scored, so that nothing
+is discovered twice. We ask whether that sharing helps or hurts when the score is an honest judge of the
+current round but a poor guide to the best one, because reaching the best setup means scoring worse for
+a while. We use a reimplementation of the lemonade-stand game of \citet{ederer2013pay}: teams of three
 GPT-5.6 agents search hidden worlds under conditions that differ only in when a shared board of teammates'
 moves and results is visible, with and without the original wording and its recommended starting setup. Three
 results hold in both framings. \textbf{Sharing roughly halves the number of distinct setups a team tries.}
