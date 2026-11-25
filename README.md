@@ -1,7 +1,7 @@
-# Narrowing Search through Shared Results
+# Teams That Share Explore Less
 
-Code, data and paper source for *Narrowing Search through Shared Results: Multi-Agent Information Sharing in
-Exploration Tasks* (Krishnan, Park and Nagaraj, 2026).
+Code, data and paper source for *Teams That Share Explore Less: Information Sharing among LLM Agents Searching for a Hidden
+Optimum* (Krishnan, Park and Nagaraj, 2026).
 
 Teams of three LLM agents play a reimplementation of the Ederer and Manso lemonade-stand game, each running its
 own stand in the same hidden world, under conditions that differ only in when a shared board of every teammate's
@@ -80,8 +80,8 @@ often the agent chose that location, and the per-episode metrics of `analysis/me
 ## Citation
 
 ```
-@article{krishnan2026narrowing,
-  title   = {Narrowing Search through Shared Results: Multi-Agent Information Sharing in Exploration Tasks},
+@article{krishnan2026teams,
+  title   = {Teams That Share Explore Less: Information Sharing among LLM Agents Searching for a Hidden Optimum},
   author  = {Krishnan, Shreyas and Park, Jongho and Nagaraj, Abhishek},
   year    = {2026},
   note    = {arXiv preprint}

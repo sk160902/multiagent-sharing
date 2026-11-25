@@ -1,27 +1,18 @@
-Groups find things faster than individuals, and groups that learn from each other too readily settle on
-worse answers than their members would have found alone. Multi-agent systems built from large language
-models (LLMs) commonly give every agent a view of its peers' attempts and results, on the assumption that an
-agent should not have to rediscover what a teammate already found. We ask whether that sharing helps or hurts when the task is to find the best setup in a landscape with a
-local optimum, where each round's profit is an exact score for that round but a poor guide to where the best
-setup lies, because every setup on the way to it pays less than the one the agent starts from. We use a reimplementation of the lemonade-stand game of \citet{ederer2013pay}: an agent chooses a
-location, a recipe and a price for \NRounds{} rounds, is paid a profit each round, and the best location pays
-about twice the one it is pointed to at the start. Teams of \NAgents{} GPT-5.6 agents, each told to
-maximise the overall performance of the business, play \NWorlds{} hidden worlds under nine conditions that
-differ only in when a shared board of every teammate's moves and profits is visible, and in two framings: the
-lemonade framing, with the original wording and a letter from the previous manager recommending a setup, and
-an alien framing in which the same worlds are described as five unlabelled decision variables with no letter.
-We show three results that hold in both framings. Sharing cuts the number of distinct setups a team tries roughly in half
-(\AllBothUniq{} of \NAttempts{}, $p=\AllBothUniqP$). Sharing raises the team's cumulative earnings over the
-\NRounds{} rounds (\AllBothSum{} percentage points of the ceiling, $p=\AllBothSumP$). Sharing lowers the
-best single-round profit any teammate reaches, by \AllBothMax{} points on average and in every run, but with
-\NWorlds{} worlds this last difference is not statistically reliable ($p=\AllBothMaxP$). The later the
-board opens, the more the team explores. Agents that can see each other copy whoever is doing best, which
-pays in the current round and tends to lock the team onto a good but not best location. The conditions that
-come closest to working alone on the best round are those that keep exploration near the working-alone level:
-a board that opens late or in only three rounds, and an instruction to stay different from one's teammates;
-none is reliably above it. A follow-up on sixteen further worlds puts the three-round board within a few points
-of working alone on the best round in both framings, and a replication of three conditions on Claude Opus 5.5
-reproduces the drop in exploration and the gain in cumulative earnings. A 60-round version of working alone
-and sharing all along shows that the trade depends on the horizon and on the letter: with the letter, the drop
-in the max closes and the cumulative lead of sharing grows; without it, the drop in the max persists and the
-cumulative lead narrows.
+% Rewritten 2026-11-24 after a co-author's feedback: about half the previous length, high level, no point
+% differences or p-values (those stay in the tables), "score" before "profit" is introduced, the three results
+% in bold, softer opening sentence. The numbers behind every bold claim are in Tables 1 and 2.
+Groups often find things faster than individuals, but a group that learns from its members too readily can
+settle on a worse answer than they would have found alone. Multi-agent systems built from large language
+models (LLMs) usually let every agent see what its peers have tried and how it scored, so that nothing is
+discovered twice. We ask whether that sharing helps or hurts on a task where the score each round is accurate
+but misleading about where the best answer lies, because every step toward it scores worse than where the
+agent starts. We use a reimplementation of the lemonade-stand game of \citet{ederer2013pay}: teams of three
+GPT-5.6 agents search hidden worlds under conditions that differ only in when a shared board of teammates'
+moves and results is visible, with and without the original wording and its recommended starting setup. Three
+results hold in both framings. \textbf{Sharing roughly halves the number of distinct setups a team tries.}
+\textbf{Sharing raises what the team earns over the game.} \textbf{Sharing never reliably raises the best
+single round any teammate reaches, and tends to lower it.} Agents that can see each other copy whoever is
+doing best, which pays now and settles the team on a good but not best hill; the later the board opens,
+the more the team explores. The first two results reappear on further worlds, a second model and a longer
+game; whether the best round stays lower depends on the horizon and on a shared start. Sharing buys a faster
+climb up whatever hill the team starts on; it does not help the team find out whether there is a higher one.
