@@ -21,7 +21,7 @@ starting point by a valley, sharing lets the group agree faster on the wrong hil
 a team of LLM agents?
 
 This paper answers that question on a task of the second kind. We use a reimplementation of
-the lemonade-stand game of \citet{ederer2013pay}, originally a laboratory experiment on how pay schemes affect
+the lemonade-stand game of \citet{ederer2013pay} (Figure~\ref{fig:overview}A), originally a laboratory experiment on how pay schemes affect
 human exploration. An agent runs a stand for \NRounds{} rounds. Each round it picks a location, two recipe
 settings, a colour and a price, receives a profit, and reads one line of customer feedback about one of the
 settings. Profit is a deterministic function of the distance between the chosen setup and a hidden ideal
@@ -31,6 +31,13 @@ which pays poorly until the ideal setup for that location is found. Profit is th
 and a misleading guide to where the best round is. The task is a structured bandit whose arms are full setups,
 with a good arm that is easy to refine and a better arm that is hard to find. The two things a team might want
 from it, the best arm and the lowest regret, are measured separately.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig_overview.pdf}
+  \caption{\textbf{(A) The game.} An agent chooses a location and four settings each round and receives that round's profit and one line of feedback about one setting. Each location has a hidden ideal; the location the letter points to pays about half of the best one, and reaching the best one means scoring worse for a while. Three agents play the same world; conditions differ only in when the shared board of teammates' setups and profits is visible. \textbf{(B) What sharing does.} Sharing roughly halves the number of distinct setups a team tries, raises what the team earns over the game, and does not raise the best single round any teammate reaches. Means over eight worlds, GPT-5.6; blue is the lemonade framing, orange the alien framing.}
+  \label{fig:overview}
+\end{figure}
 
 We put \NAgents{} identical GPT-5.6 agents in the same hidden world and vary one thing: when the shared board,
 listing every teammate's setup and profit so far, is visible. Each agent is told to maximise the overall
@@ -43,7 +50,7 @@ described as five unlabelled decision variables with no recommendation. Each con
 \NWorlds{} worlds, two or three times per world, so that we can report whether the first run's numbers
 reproduce.
 
-We show three things that hold in both framings. First, sharing collapses exploration: a team that sees the
+We show three things that hold in both framings (Figure~\ref{fig:overview}B). First, sharing collapses exploration: a team that sees the
 board from round one tries about half as many distinct setups as three agents working alone, and the later
 the board opens, the more the team explores. This is the most reliable result in the paper: it holds in every
 world, in every run and in both framings. Second, sharing raises cumulative earnings over the \NRounds{}
