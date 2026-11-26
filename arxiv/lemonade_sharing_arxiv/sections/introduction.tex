@@ -27,7 +27,7 @@ settings, a colour and a price, receives a profit, and reads one line of custome
 settings. Profit is a deterministic function of the distance between the chosen setup and a hidden ideal
 setup at that location. The location the agent is pointed to at the start pays about half of what the best
 location can pay, and reaching the best location requires changing the location and several settings at once,
-which pays poorly until the new recipe is found. Profit is therefore an honest verifier of the current round
+which pays poorly until the ideal setup for that location is found. Profit is therefore an honest verifier of the current round
 and a misleading guide to where the best round is. The task is a structured bandit whose arms are full setups,
 with a good arm that is easy to refine and a better arm that is hard to find. The two things a team might want
 from it, the best arm and the lowest regret, are measured separately.
