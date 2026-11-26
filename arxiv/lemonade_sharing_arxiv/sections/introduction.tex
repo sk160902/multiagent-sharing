@@ -27,12 +27,12 @@ settings, a colour and a price, receives a profit, and reads one line of custome
 settings. Profit is a deterministic function of the distance between the chosen setup and a hidden ideal
 setup at that location. The location the agent is pointed to at the start pays about half of what the best
 location can pay, and reaching the best location requires changing the location and several settings at once,
-which pays badly until the new recipe is found. Profit is therefore an honest verifier of the current round
+which pays poorly until the new recipe is found. Profit is therefore an honest verifier of the current round
 and a misleading guide to where the best round is. The task is a structured bandit whose arms are full setups,
 with a good arm that is easy to refine and a better arm that is hard to find. The two things a team might want
 from it, the best arm and the lowest regret, are measured separately.
 
-We put \NAgents{} identical GPT-5.6 agents in the same hidden world and vary one thing: when a shared board,
+We put \NAgents{} identical GPT-5.6 agents in the same hidden world and vary one thing: when the shared board,
 listing every teammate's setup and profit so far, is visible. Each agent is told to maximise the overall
 performance of the business and nothing more. Nine conditions range from agents that never
 see each other, through boards that open after two, five, ten or fifteen private rounds, to a board visible in
@@ -61,8 +61,8 @@ trade is horizon-dependent in a way that turns on the letter: given time, sharin
 common recommendation leave it and lose nothing on the best round while earning more, whereas teams with no
 recommendation stay below working alone on the best round and keep a smaller earnings lead.
 
-The contribution is a clean testbed and a measured answer. The testbed is small, deterministic and cheap to
-run, has a known global optimum in every world, and separates the two things a team might want: the
+The contribution is a clean testbed and a measured answer. The testbed is small, deterministic, cheap to
+run, and has a known global optimum in every world. This separates the two things a team might want: the
 ceiling it reaches and the total it earns on the way. The answer is that for LLM agents on a landscape with a
 valley, visibility trades the ceiling for the total, the mechanism is reduced search, and the lever that
 restores the ceiling is limiting how often or how closely the agents look at each other. Section~\ref{sec:related}
