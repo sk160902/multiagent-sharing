@@ -25,14 +25,15 @@ is a reliable guide to the top, sharing lets the group climb faster. When the to
 starting point by a valley, sharing lets the group agree faster on the wrong hill. Which of the two describes
 a team of LLM agents?
 
-This paper answers that question on a task of the second kind. We use a reimplementation of
+This paper answers that question on a task where the best answer is separated from the starting point by a
+valley, so that the moves which lead toward it score worse at first. We use a reimplementation of
 the lemonade-stand game of \citet{ederer2013pay} (Figure~\ref{fig:overview}A), originally a laboratory experiment on how pay schemes affect
 human exploration. An agent runs a stand for \NRounds{} rounds. Each round it picks a location, two recipe
 settings, a colour and a price, receives a profit, and reads one line of customer feedback about one of the
 settings. Profit is a deterministic function of the distance between the chosen setup and a hidden ideal
 setup at that location. The location the agent is pointed to at the start pays about half of what the best
 location can pay, and reaching the best location requires changing the location and several settings at once,
-which pays poorly until the ideal setup for that location is found. Profit is therefore an honest verifier of the current round
+which pays poorly until the ideal setup for that location is found. Profit is therefore a truthful verifier of the current round
 and a misleading guide to where the best round is. The task is a structured bandit whose arms are full setups,
 with a good arm that is easy to refine and a better arm that is hard to find. The two things a team might want
 from it, the best arm and the lowest regret, are measured separately.
