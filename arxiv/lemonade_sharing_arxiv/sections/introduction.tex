@@ -1,8 +1,11 @@
 \section{Introduction}\label{sec:intro}
 
-Discovery is a group activity, and groups face a trade that individuals do not: seeing what others have found
-speeds the climb, and it narrows the search. Systems of several LLM agents working on one problem are now
-common, and almost all of them let the agents see what the others have done: a shared scratchpad, a message channel, a log of attempts and scores.
+Groups that search together find good answers faster than individuals searching apart, and they pay for it in
+what they find: seeing what others have found speeds the climb, and it narrows the search. In a field
+experiment on a computational biology problem, \citet{boudreau2015open} found that letting competitors see one
+another's intermediate solutions raised average performance but concentrated the field on a few approaches,
+while withholding solutions until the end produced more varied attempts and the best final solutions. Systems
+of several LLM agents working on one problem are now common, and almost all of them let the agents see what the others have done: a shared scratchpad, a message channel, a log of attempts and scores.
 The usual assumption is that more visibility is better, because an agent that can see a teammate's good
 result need not rediscover it. Recent work supports that assumption for problems where feedback ranks
 partial progress correctly: \citet{park2026scaling} show that $k$ agents sharing a workspace beat the best of
