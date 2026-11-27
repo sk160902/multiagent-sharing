@@ -48,8 +48,8 @@ from the game, the best arm and the lowest regret, are measured separately. Agen
 every teammate's setup and profit in every round so far.
 
 
-We put \NAgents{} identical GPT-5.6 agents in the same hidden world and vary one thing: when the shared board is
-visible. Each agent is told to maximise the overall
+The agents are identical GPT-5.6 instances placed in the same hidden world, and we vary one thing: when the
+shared board is visible. Each agent is told to maximise the overall
 performance of the business and nothing more. Nine conditions range from agents that never
 see each other, through boards that open after two, five, ten or fifteen private rounds, to a board visible in
 only three rounds, a board with an instruction to stay different from one's teammates, and agents that move
@@ -83,7 +83,7 @@ trade is horizon-dependent in a way that turns on the letter: given time, sharin
 common recommendation leave it and lose nothing on the best round while earning more, whereas teams with no
 recommendation stay below working alone on the best round and keep a smaller earnings lead.
 
-Alongside these results, the paper contributes a clean testbed. The testbed is small, deterministic, cheap to
+Beyond the three results, the paper offers a clean testbed and a measured answer. The testbed is small, deterministic, cheap to
 run, and has a known global optimum in every world. This separates the two things a team might want: the
 ceiling it reaches and the total it earns on the way. The answer is that for LLM agents on a landscape with a
 valley, visibility trades the ceiling for the total, the mechanism is reduced search, and the lever that
