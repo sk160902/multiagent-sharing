@@ -9,10 +9,10 @@ of several LLM agents working on one problem are now common, and many of them le
 others have done, for example through one document everyone writes to, messages between agents, or a record of
 what each agent tried and how it turned out \citep{du2023improving,park2023generative,park2026scaling,qu2026coral,yan2025beyond}.
 The usual assumption is that more visibility is better, because an agent that can see a teammate's good
-result need not rediscover it. Recent work supports that assumption for problems where feedback ranks
-partial progress correctly: \citet{park2026scaling} show that $k$ agents sharing a workspace beat the best of
-$k$ independent agents when an agent-accessible verifier can tell better partial solutions from worse ones,
-and that the advantage disappears where feedback cannot rank intermediate solutions.
+result need not rediscover it. Recent work studies this at scale: teams of agents that can see one another's
+work improve with more agents and more compute on coding, software maintenance and open-ended discovery tasks
+\citep{park2026scaling,qu2026coral,shen2026swecraft}, with the clearest gains where feedback can tell better
+partial solutions from worse ones and little or none where it cannot \citep{park2026scaling}.
 
 A long line of work on organisational learning predicts the opposite for a different kind of problem.
 \citet{march1991exploration} argued that mutual learning in a group raises short-run performance and lowers
