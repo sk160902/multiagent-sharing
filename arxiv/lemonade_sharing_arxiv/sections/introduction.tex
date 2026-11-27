@@ -14,6 +14,13 @@ work improve with more agents and more compute on coding, software maintenance a
 \citep{park2026scaling,qu2026coral,shen2026swecraft}, with the clearest gains where feedback can tell better
 partial solutions from worse ones and little or none where it cannot \citep{park2026scaling}.
 
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig_overview.pdf}
+  \caption{\textbf{(A) The game.} An agent chooses a location and four settings each round and receives that round's profit and one line of feedback about one setting. Each location has a hidden ideal; the location the letter points to pays about half of the best one, and reaching the best one means scoring worse for a while. Three agents play the same world; conditions differ only in when the shared board of teammates' setups and profits is visible. \textbf{(B) What sharing does.} Sharing roughly halves the number of distinct setups a team tries, raises what the team earns over the game, and does not raise the best single round any teammate reaches. Means over eight worlds, GPT-5.6; blue is the lemonade framing, orange the alien framing.}
+  \label{fig:overview}
+\end{figure}
+
 A long line of work on organisational learning predicts the opposite for a different kind of problem.
 \citet{march1991exploration} argued, from a simulation model of an organisation, that mutual learning in a group
 raises short-run performance and lowers long-run performance, because members converge on whatever currently looks best before anyone has found
@@ -36,46 +43,47 @@ location can pay, and reaching the best location requires changing the location 
 which pays poorly until the ideal setup for that location is found. Profit is therefore a truthful verifier of the current round
 and a misleading guide to where the best round is. The task is a structured bandit whose arms are full setups,
 with a good arm that is easy to refine and a better arm that is hard to find. The two things a team might want
-from it, the best arm and the lowest regret, are measured separately.
+from the game, the best arm and the lowest regret, are measured separately. Agents play in teams of
+\NAgents{}. The only link between teammates is a shared board: a table added to each agent's prompt that lists
+every teammate's setup and profit in every round so far.
 
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=\linewidth]{figures/fig_overview.pdf}
-  \caption{\textbf{(A) The game.} An agent chooses a location and four settings each round and receives that round's profit and one line of feedback about one setting. Each location has a hidden ideal; the location the letter points to pays about half of the best one, and reaching the best one means scoring worse for a while. Three agents play the same world; conditions differ only in when the shared board of teammates' setups and profits is visible. \textbf{(B) What sharing does.} Sharing roughly halves the number of distinct setups a team tries, raises what the team earns over the game, and does not raise the best single round any teammate reaches. Means over eight worlds, GPT-5.6; blue is the lemonade framing, orange the alien framing.}
-  \label{fig:overview}
-\end{figure}
 
-We put \NAgents{} identical GPT-5.6 agents in the same hidden world and vary one thing: when the shared board,
-listing every teammate's setup and profit so far, is visible. Each agent is told to maximise the overall
+We put \NAgents{} identical GPT-5.6 agents in the same hidden world and vary one thing: when the shared board is
+visible. Each agent is told to maximise the overall
 performance of the business and nothing more. Nine conditions range from agents that never
 see each other, through boards that open after two, five, ten or fifteen private rounds, to a board visible in
 only three rounds, a board with an instruction to stay different from one's teammates, and agents that move
-one at a time within each round. To check that the result is not an artefact of the lemonade wording and of
-the recommended starting setup, every condition is also run in an alien framing, in which the same worlds are
-described as five unlabelled decision variables with no recommendation. Each condition is run on
+one at a time within each round. Every condition is run in two framings: the lemonade framing just described, in which a letter from the
+previous manager recommends a starting setup, and an alien framing, in which the same worlds are described as
+five unlabelled decision variables with no letter. The second framing checks that the results are not an
+artefact of the lemonade wording or of the recommended start. Each condition is run on
 \NWorlds{} worlds, two or three times per world, so that we can report whether the first run's numbers
 reproduce.
 
-We show three things that hold in both framings. First, sharing collapses exploration
-(Figure~\ref{fig:overview}B): a team that sees the
-board from round one tries about half as many distinct setups as three agents working alone, and the later
-the board opens, the more the team explores. This is the most reliable result in the paper: it holds in every
-world, in every run and in both framings. Second, sharing raises cumulative earnings over the \NRounds{}
-rounds in every sharing condition, because agents copy whoever is currently doing best and copying pays in
-the current round. Third, sharing lowers the best single-round profit any teammate reaches. The size of the
-drop is similar in the first run and in the repeats, but with \NWorlds{} worlds it is not statistically
-reliable, and we say so. The sharing conditions that come closest to working alone on the best round are those
-that preserve exploration: a board that opens late or in only three rounds, and the stay-different
-instruction. Nothing we ran puts sharing reliably above working alone on the best round. A direct test of the
-three-round board on sixteen further worlds puts it within a few points of working alone in both framings, and
-a replication of three conditions on Claude
+\paragraph{Contributions.}
+We show three things that hold in both framings.
+\begin{itemize}[leftmargin=*,itemsep=2pt,topsep=2pt]
+  \item \textbf{Sharing halves exploration} (Figure~\ref{fig:overview}B). A team that sees the board from
+  round one tries about half as many distinct setups as three agents working alone, and the later the board
+  opens, the more the team explores. This holds in every world, in every run and in both framings.
+  \item \textbf{Sharing raises cumulative earnings} over the \NRounds{} rounds in every sharing condition,
+  because agents copy whoever is currently doing best and copying pays in the current round.
+  \item \textbf{Sharing lowers the best single round.} The best single-round profit any teammate reaches is
+  lower under sharing than for the same three agents working alone in the same world. The size of the drop is
+  similar in the first run and in the repeats, but with \NWorlds{} worlds it is not statistically reliable, and
+  we say so. The sharing conditions that come closest to working alone on the best round are those that
+  preserve exploration: a board that opens late or in only three rounds, and the stay-different instruction.
+  Nothing we ran puts sharing reliably above working alone on the best round.
+\end{itemize}
+Three further checks support these results. A direct test of the three-round board on sixteen further worlds
+puts it within a few points of working alone in both framings. A replication of three conditions on Claude
 Opus 5.5 reproduces the exploration and earnings results, with the drop in the best round appearing in the
 lemonade framing but not in the alien framing. A 60-round version of the two main conditions shows that the
 trade is horizon-dependent in a way that turns on the letter: given time, sharing teams that start from a
 common recommendation leave it and lose nothing on the best round while earning more, whereas teams with no
 recommendation stay below working alone on the best round and keep a smaller earnings lead.
 
-The contribution is a clean testbed and a measured answer. The testbed is small, deterministic, cheap to
+Alongside these results, the paper contributes a clean testbed. The testbed is small, deterministic, cheap to
 run, and has a known global optimum in every world. This separates the two things a team might want: the
 ceiling it reaches and the total it earns on the way. The answer is that for LLM agents on a landscape with a
 valley, visibility trades the ceiling for the total, the mechanism is reduced search, and the lever that

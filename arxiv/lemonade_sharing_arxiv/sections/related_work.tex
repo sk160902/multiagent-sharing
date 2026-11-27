@@ -36,6 +36,9 @@ not to the landscape.
 \paragraph{Communication between LLM agents.}
 Generative-agent systems let LLM agents observe and talk to one another \citep{park2023generative}, and
 \citet{park2026scaling} study the minimal case we start from: identical agents, one shared workspace, no roles
-and no orchestrator. They find that sharing beats the best of $k$ independent agents when a verifier ranks
-partial progress correctly and that the advantage disappears when it cannot. Our world is the case they leave
-open: a verifier that is correct about the current round and misleading about the direction of the best one.
+and no orchestrator. They find that sharing beats the best of $k$ independent agents whenever the agents have a correct verifier.
+Our world is a counterexample: profit is a correct verifier of each round, yet sharing narrows the team's search
+and leaves the best round no higher, and usually lower. The reason is that a correct score for the current
+round does not rank progress toward the best setup, because every step from the recommended location toward
+the best one scores worse at first; agents that can see one another copy the current leader, and the team
+never crosses the valley.
