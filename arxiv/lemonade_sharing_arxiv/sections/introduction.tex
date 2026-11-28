@@ -68,10 +68,12 @@ We show three things that hold in both framings.
   opens, the more the team explores. This holds in every world, in every run and in both framings.
   \item \textbf{Sharing raises cumulative earnings} over the \NRounds{} rounds in every sharing condition,
   because agents copy whoever is currently doing best and copying pays in the current round.
-  \item \textbf{Sharing lowers the best single round.} The best single-round profit any teammate reaches is
-  lower under sharing than for the same three agents working alone in the same world. The size of the drop is
-  similar in the first run and in the repeats, but with \NWorlds{} worlds it is not statistically reliable, and
-  we say so. The sharing conditions that come closest to working alone on the best round are those that
+  \item \textbf{Sharing lowers the best single round on average.} Averaged over the sharing conditions, the
+  change in the best single-round profit any teammate reaches is \AllLemMax{} points of the optimum in the
+  lemonade framing and \AllAliMax{} in the alien framing, with the same sign in the first run and in the
+  repeats. The worlds do not agree on the direction, and the paired test over \NWorlds{} worlds does not
+  separate the drop from zero (Section~\ref{sec:stats}); we report it as a consistent average, not as an
+  established effect. The sharing conditions that come closest to working alone on the best round are those that
   preserve exploration: a board that opens late or in only three rounds, and the stay-different instruction.
   Nothing we ran puts sharing reliably above working alone on the best round.
 \end{itemize}
@@ -84,10 +86,10 @@ common recommendation leave it and lose nothing on the best round while earning 
 recommendation stay below working alone on the best round and keep a smaller earnings lead.
 
 Beyond the three results, the paper offers a clean testbed and a measured answer. The testbed is small, deterministic, cheap to
-run, and has a known global optimum in every world. This separates the two things a team might want: the
-ceiling it reaches and the total it earns on the way. The answer is that for LLM agents on a landscape with a
-valley, visibility trades the ceiling for the total, the mechanism is reduced search, and the lever that
-restores the ceiling is limiting how often or how closely the agents look at each other. Section~\ref{sec:related}
-places the study, Section~\ref{sec:method} describes the game, the framings, the conditions and the
-measures, Section~\ref{sec:results} reports the results and their reproducibility, and
-Section~\ref{sec:discussion} states what we think is established, what is not, and what we plan next.
+run, and has a known global optimum in every world. Because every world has a known optimum, two goals a team might have can be scored
+separately: the best round it ever reaches, and the total it earns over the game. The answer is that for LLM agents on a landscape with a
+valley, visibility trades the ceiling for the total. It does so because the team searches less. The ceiling
+returns when the agents look at each other less often or less closely. Section~\ref{sec:method} describes the
+game, the framings, the conditions and the measures, Section~\ref{sec:results} reports the results and their
+reproducibility, Section~\ref{sec:related} places the study among prior work, and
+Section~\ref{sec:discussion} states what is established, what is not, and future directions.

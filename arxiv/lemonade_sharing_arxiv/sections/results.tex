@@ -1,4 +1,4 @@
-\section{Results}\label{sec:results}
+\section{Results: Sharing Trades the Ceiling for the Total}\label{sec:results}
 
 \paragraph{Overview.}
 Table~\ref{tab:main} gives every condition's mean on the three measures in both framings, and
@@ -30,7 +30,7 @@ intervals and exact sign-flip $p$-values, and the text quotes the estimates and 
   \figurenote{``Both'' averages the two framings within each world before taking the difference. The smallest attainable $p$ with eight worlds is 0.0078.}
 \end{table}
 
-\paragraph{Sharing cuts exploration in half.}
+\subsection{Sharing cuts exploration in half}
 Three agents working alone try \LemSoloUniq{} distinct setups out of \NAttempts{} in the lemonade framing and
 \AliSoloUniq{} in the alien framing. A team that shares from round 1 tries \LemShareUniq{} and
 \AliShareUniq{}. Averaged over the eight sharing conditions, sharing removes \AllLemUniq{} setups in the lemonade
@@ -42,7 +42,7 @@ collapse is in locations as well as recipes: once the board is open, the three a
 in about \SameLocShareLem\% of agent-rounds in the lemonade framing and \SameLocShareAli\% in the alien
 framing, against \SameLocSoloLem\% and \SameLocSoloAli\% for agents working alone.
 
-\paragraph{Sharing raises cumulative earnings.}
+\subsection{Sharing raises cumulative earnings}
 Working alone earns the least in both framings, \LemSoloSum\% of the ceiling in the lemonade framing and
 \AliSoloSum\% in the alien framing, and every one of the eight sharing conditions earns more. Averaged over
 them, sharing adds \AllLemSum{} points in the lemonade framing and \AllAliSum{} in the alien framing. The
@@ -53,7 +53,7 @@ agent's own best round is also higher under sharing, by \OwnBestLem{} points in 
 \OwnBestAli{} in the alien framing, so sharing makes the typical agent better off even as it lowers the
 team's ceiling.
 
-\paragraph{Sharing lowers the max, but not reliably.}
+\subsection{Sharing lowers the max on average, but the worlds disagree}
 In the lemonade framing working alone has the highest max, \LemSoloMax\%, and every sharing condition is
 below it, by 3 to 15 points; sharing all along is at \LemShareMax\%. In the alien framing working alone is at
 \AliSoloMax\% and sharing all along at \AliShareMax\%. Averaged over the sharing conditions the drop is
@@ -73,7 +73,7 @@ alien framing; sharing all along did so in \LemShareReached{} and \AliShareReach
   \input{tables/tab_reached}
 \end{table}
 
-\paragraph{Timing of the board.}
+\subsection{The later the board opens, the more the team explores}
 Figure~\ref{fig:timing} plots the max against the round in which the board opens. The two framings differ in
 shape. In the lemonade framing the worst time to open the board is the middle of the game: sharing after 2 or
 5 private rounds is the lowest, and opening it very late recovers most of the loss. In the alien framing the
@@ -105,7 +105,8 @@ the repeats (Appendix~\ref{app:agree}). We therefore read no sharing condition a
 on the max. The conditions that come closest to it in both framings are those that keep exploration near the
 working-alone level: a board that opens late or in only three rounds, and the stay-different instruction.
 
-\paragraph{Replication on sixteen further worlds.}
+\subsection{The results hold on more worlds, a second model and a longer horizon}
+\paragraph{Sixteen further worlds.}
 Because the test over eight worlds cannot separate a gap of a few points from zero, we ran the periodic board
 and working alone on sixteen further worlds that no condition had touched, three runs per world, in both
 framings, with the analysis fixed before each run. Table~\ref{tab:worlds24} gives the differences on the new
@@ -138,7 +139,7 @@ setups in \WLAllUniqDown{} and \WAllUniqDown{} of the \WAllUniqN{} worlds.
   \input{tables/tab_percondition}
 \end{table}
 
-\paragraph{Replication on a second model.}
+\paragraph{A second model.}
 To check that the pattern is not specific to GPT-5.6, we ran working alone, sharing all along and the
 periodic board on Claude Opus 5.5, in both framings, on the eight pilot worlds, two runs per world, with the
 analysis fixed before the runs. Table~\ref{tab:claude} puts the differences beside GPT-5.6's on the same

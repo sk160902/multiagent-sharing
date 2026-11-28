@@ -1,4 +1,4 @@
-\section{Methodology}\label{sec:method}
+\section{The Testbed: A Lemonade Game with a Hidden Optimum}\label{sec:method}
 
 \subsection{The game}\label{sec:game}
 
@@ -14,7 +14,7 @@ location. It says nothing about other locations and never mentions colour. The a
 rule or the ideals; it has to find a good setup by trying things. Appendix~\ref{app:prompts} gives the
 prompts verbatim.
 
-\subsection{Worlds}\label{sec:worlds}
+\subsection{Worlds: hidden landscapes with a known optimum}\label{sec:worlds}
 
 A world is a set of hidden ideals, one per location, together with each location's ceiling and penalty
 slopes. Worlds are drawn by a generator that reproduces the structure of the original game
@@ -28,7 +28,7 @@ most any setup can pay in one round, are listed in Appendix~\ref{app:worlds}. Al
 as a share of the world's global optimum so that worlds can be compared. No setup outside the best location
 pays more than 56.3\% of the optimum in any of the eight worlds.
 
-\subsection{Two framings}\label{sec:framings}
+\subsection{Two framings: lemonade with a letter, alien without}\label{sec:framings}
 
 \paragraph{Lemonade framing.}
 The agent is told it runs a lemonade stand. Locations have their real names, such as school or stadium, and
@@ -58,7 +58,7 @@ agents are not told how they are scored. The task instruction in every condition
 maximise the overall performance of the business'' (or ``of the lemonade stand''). The board, like the rest
 of the prompt, is rendered in the framing's own vocabulary (Appendix~\ref{app:prompts}).
 
-\subsection{Conditions}\label{sec:conditions}
+\subsection{Nine conditions that differ only in when the board is visible}\label{sec:conditions}
 
 Nine conditions were run. They differ only in when the board is visible and, in one case, in what the agents
 are told about it. Everything else is identical.
@@ -90,7 +90,7 @@ Working alone is the reference. Three agents working alone receive the same \NAt
 as a sharing team, so the two are scored on the same number of tries. Where the text says the periodic board it
 means the condition in which the board is visible only at rounds 6, 11 and 16.
 
-\subsection{Measures}\label{sec:measures}
+\subsection{Measures: distinct setups, cumulative earnings, best round}\label{sec:measures}
 
 All measures are computed per team per world and expressed as a share of the world's global optimum, except
 the count of distinct setups.

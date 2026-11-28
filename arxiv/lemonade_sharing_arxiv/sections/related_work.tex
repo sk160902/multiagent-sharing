@@ -25,17 +25,32 @@ game, the valley and the letter, and change the question from how the individual
 individual can see of others.
 
 \paragraph{LLM agents and exploration.}
-Frozen LLMs explore poorly in bandit problems: they fail to return to the best arm, or play nearly uniformly,
-except under engineered prompts \citep{krishnamurthy2024explore}, and their failures are greedy
-\citep{schmied2025greedy}. Their exploration is also shaped by what the arms are called:
+Frozen LLMs explore poorly. In bandit problems they fail to return to the best arm or play nearly uniformly
+except under engineered prompts \citep{krishnamurthy2024explore}, benchmarks of in-context exploration place
+them well short of simple algorithms \citep{nie2024evolve}, and in an open-ended discovery game most models
+explore less than people do \citep{pan2025think}. Their failures are greedy \citep{schmied2025greedy}, and
+training them on bandit tasks, by imitation or by reinforcement, matches classic algorithms on average regret
+while making them greedier still and more prone to abandoning exploration early \citep{chen2025greedy}. The
+settings in which they do learn in context from reward are contextual bandits whose reward is correct for
+each choice \citep{monea2024bandit}. Their exploration is also shaped by what the arms are called:
 \citet{austin2026semantic} vary the labels of a bandit and find that semantic priors bias which arms are
 tried. Our alien framing follows that idea. It keeps every number in the world and changes only the words,
 so that any difference between framings is attributable to the labels and to the recommended starting setup,
 not to the landscape.
 
 \paragraph{Communication between LLM agents.}
-Generative-agent systems let LLM agents observe and talk to one another \citep{park2023generative}, and
-\citet{park2026scaling} study the minimal case we start from: identical agents, one shared workspace, no roles
+Multi-agent LLM systems let agents observe and talk to one another: by debate \citep{du2023improving}, in
+persistent simulated societies \citep{park2023generative}, or in shared workspaces where agents divide an open
+problem \citep{qu2026coral,shen2026swecraft}; \citet{yan2025beyond} survey the communication designs. In the
+shared-workspace studies, collective performance grows with the compute spent by collaborating agents
+\citep{park2026scaling,shen2026swecraft}. A second line of work shows the cost of visibility. Populations of
+LLM agents herd on early leaders far more readily than people do \citep{hashemi2026herding}, multi-round
+discussion converges early and suppresses correct minority answers \citep{pitre2026failures}, and in simulated
+markets disclosing more information to every agent can trigger breakdowns that lower welfare, with the effect
+depending on the model \citep{erdogan2026who}. Closest to our mechanism, \citet{ren2026coral} find that agents
+improving programs against a grader follow the leader and converge on one approach when they share only a
+score, and add a board of directions to keep them apart. \citet{park2026scaling} study the minimal case we
+start from: identical agents, one shared workspace, no roles
 and no orchestrator. They find that sharing beats the best of $k$ independent agents whenever the agents have a correct verifier.
 Our world is a counterexample: profit is a correct verifier of each round, yet sharing narrows the team's search
 and leaves the best round no higher, and usually lower. The reason is that a correct score for the current
